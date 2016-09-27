@@ -14,6 +14,7 @@
 
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <link href="css/glyphicons.css" rel="stylesheet" />
+    <link href="css/waiting.css" rel="stylesheet" />
 
     <!--JQuery UI-->
     <script src="js/jquery-1.12.4.js"></script>
@@ -35,39 +36,32 @@
     </style>
 
     <script>
+        $(document).ready(function(){
+            $('.waiting').hide();
+        });
+
         //Scrivo il nome del file selezionato
         $(document).on('change', '.inputfile', function() {
             var dio = ($(this).val().split('\\').pop());    //Nome del file
             var estensione = ($(this).val().split('.').pop().toLowerCase());    //Estensione del file
 
             //Se ho già scelto una volta il file ma voglio sostituirlo AND l'estensione è quella giusta
-            if(($(this).closest('.gruppoinput').children('p').length) && (checkCsv(estensione) == 1)){
+            if($(this).closest('.gruppoinput').children('p').length){
                 $(this).closest('.gruppoinput').children('p').remove(); //Sostituisco il nome del file
-
             }
-            else{
-                alert("Richiesto file di tipo csv");
-            }
-
             //Se scelgo il file per la prima volta allora controllo l'estensione, se è ok appendo il nome del file
-            var estensione = ($(this).val().split('.').pop().toLowerCase());
-            if (checkCsv(estensione) == 1){
-                $(this).closest('.gruppoinput').append('<p>'+dio+'</p>');
-                $(this).parent().next().prop('disabled', false);
-            }
-            else{
-                alert("Richiesto file di tipo csv");
-            }
-
+            $(this).closest('.gruppoinput').append('<p>'+dio+'</p>');
+            $(this).parent().next().prop('disabled', false);
         });
+
         //Rimuovo gli elementi su cui clicco nella colonna di destra
         $(document).on('click', '#remove_elem', function() {
             $('div .col-md-8').effect("highlight", {}, 1000);
-            $('div .col-md-8').css('cursor', 'grabbing');
+            //$('div .col-md-8').css('cursor', 'crosshair');
             $('div .col-md-8').click(function(e){
                 $(e.target).remove();
-                $('div .col-md-8').off('click');
-                $('div .col-md-8').css('cursor', 'default');
+                $('div .col-md-8').off('click'); //Dopo aver rimosso un elemento disattivo, bisogna cliccare di nuovo su remove per rim un altro
+                //$('#sortable').css('cursor', 'default');
             });
         });
 
@@ -76,7 +70,7 @@
             var par = $(this).parent();
 
             var testo = par.children().last().text();
-            alert(testo);
+            //alert(testo);
             myAjax(testo);
         });
 
@@ -151,10 +145,7 @@
                 <button type="button" class="btn btn-primary" id="addelem" onclick="addElements()">Aggiungi</button>
                 <button type="button" class="btn btn-danger" id="remove_elem">Rimuovi</button>
             </div>
-
-
-
-
+            
 
             <div class="gruppoinput">
                 <label class="btn btn-default btn-info" style="margin-top: 8px">
@@ -169,23 +160,10 @@
         </div>
 
         <div class="col-md-8">
-            <!--<ul id="sortable">
-                <li class="ui-state-default">
-                    <div class="m-t-1" id="titolo">
+            <div class="waiting">
 
-                    </div>
-                </li>
-                <li class="ui-state-default">
-                    <div id="testo">
-                        <h1>Pellentesque ut elementum penis.</h1>
-                    </div>
-                </li>
-                <li class="ui-state-default">
-                    <div id="infografica">
+            </div>
 
-                    </div>
-                </li>
-            </ul>-->
             <ul id="sortable">
 
             </ul>

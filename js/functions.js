@@ -11,39 +11,34 @@ function setImg(){
 
 var img;
 
-$("#FilUploader").change(function () {
-    var fileExtension = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
-    if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
-        alert("Only formats are allowed : "+fileExtension.join(', '));
-    }
-});
-
-function checkCsv(name){
-    if (name == "csv") {
-        return 1;
-    }
-    else{
-        return 0;
-    }
-}
-
 function myAjax (nomefile) {
     var testo = nomefile;
-    $.ajax( { type : 'POST',
-        data : {testo},
-        url  : 'action.php',              // <=== CALL THE PHP FUNCTION HERE.
-        success: function ( data ) {
-            img = testo.slice(0, -4);
-            //alert( data );               // <=== VALUE RETURNED FROM FUNCTION.
-        },
-        error: function (xhr, status, error) {
-            // executed if something went wrong during call
-            if (xhr.status > 0) alert('got error: ' + status); // status 0 - when load is interrupted
-        },
-        complete: function (data) {
-            setImg();
-        }
-    });
+    estensione = nomefile.split('.').pop().toLowerCase();
+    if(estensione == "csv"){
+        $.ajax( { type : 'POST',
+            data : {testo},
+            url  : 'action.php',              // <=== CALL THE PHP FUNCTION HERE.
+            success: function ( data ) {
+                img = testo.slice(0, -4);
+                //alert( data );               // <=== VALUE RETURNED FROM FUNCTION.
+            },
+            error: function (xhr, status, error) {
+                // executed if something went wrong during call
+                if (xhr.status > 0) alert('got error: ' + status); // status 0 - when load is interrupted
+            },
+            complete: function (data) {
+                setImg();
+                $('.waiting').hide();
+            },
+            beforeSend:function(){
+                $('.waiting').show();
+            }
+        });
+    }
+    else{
+        alert("Richiesto un file di tipo csv");
+    }
+
 }
 
 
@@ -52,6 +47,7 @@ function setTitle(){
     var testo = document.getElementById('title').value;
     $('#sortable').append('<li class="ui-state-default"><h1>'+testo+'</h1></li>');
     $('#title').val('');
+    $('#sortable').css('cursor', 'default');
 }
 
 var x = 0; //initlal text box count
