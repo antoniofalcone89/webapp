@@ -41,11 +41,13 @@ function myAjax (nomefile) {
 
 }
 
-
+function removeCanvas(){
+    $(".modal-body").empty();
+}
 
 function setTitle(){
     var testo = document.getElementById('title').value;
-    $('#sortable').append('<li class="ui-state-default"><h1>'+testo+'</h1></li>');
+    $('#sortable').prepend('<li class="ui-state-default"><h1>'+testo+'</h1></li>');
     $('#title').val('');
     $('#sortable').css('cursor', 'default');
 }
