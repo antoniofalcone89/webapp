@@ -44,13 +44,12 @@
         //Scrivo il nome del file selezionato
         $(document).on('change', '.inputfile', function() {
             var dio = ($(this).val().split('\\').pop());    //Nome del file
-            var estensione = ($(this).val().split('.').pop().toLowerCase());    //Estensione del file
 
-            //Se ho già scelto una volta il file ma voglio sostituirlo AND l'estensione è quella giusta
+            //Se ho già scelto una volta il file devo sostituirlo
             if($(this).closest('.gruppoinput').children('p').length){
                 $(this).closest('.gruppoinput').children('p').remove(); //Sostituisco il nome del file
             }
-            //Se scelgo il file per la prima volta allora controllo l'estensione, se è ok appendo il nome del file
+            //Se scelgo il file per la prima volta allora appendo il nome del file
             $(this).closest('.gruppoinput').append('<p>'+dio+'</p>');
             $(this).parent().next().prop('disabled', false);
         });
@@ -87,7 +86,7 @@
         $(document).ready(function(){
 
 
-            var element = $(".col-md-8"); // global variable
+            var element = $("#contenitore"); // global variable
             var getCanvas; // global variable
 
             $("#save").on('click', function () {
@@ -154,62 +153,96 @@
 
 
 
-    <div class="row" style="padding-top: 25px;">
+    <div class="row">
 
-        <!--Bottoni vari barra sinistra-->
-        <div class="col-md-4" id="strumenti">
 
-            <div class="dropdown">
-                <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Aggiungi
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#" onclick="addElements()">Infografica</a>
-                    <a class="dropdown-item" href="#" onclick="addText()">Testo</a>
+            <div class="col-md-4">
+                <div class="dropdown">
+                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Aggiungi
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#" onclick="addElements()">Infografica</a>
+                        <a class="dropdown-item" href="#" onclick="addText()">Testo</a>
+                    </div>
+                    <button type="button" class="btn btn-outline-primary" id="remove_elem">Rimuovi</button>
+
                 </div>
-                <button type="button" class="btn btn-outline-primary" id="remove_elem">Rimuovi</button>
-
             </div>
 
 
-            <form class="form-inline" id="firstInput" style="margin-top: 8px;">
-                <div class="form-group">
-                    <input type="text" class="form-control" id="title" placeholder="Titolo">
+            <div class="col-md-4">
+                <form class="form-inline" id="firstInput">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="title" placeholder="Titolo">
+                    </div>
+                    <button type="button" class="btn btn-primary" id="inserisciTitolo" onclick="setTitle(title.value)">Ok</button>
+
+                </form>
+            </div>
+
+
+            <div class="col-md-4">
+                <div class="gruppoinput" id="firstimg">
+                    <label class="btn btn-default btn-info">
+                        Browse <input type="file" style="display: none;" class="inputfile"/>
+                    </label>
+                    <button type="button" class="btn btn-outline-danger" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
                 </div>
-                <button type="button" class="btn btn-primary" id="inserisciTitolo" onclick="setTitle(title.value)">Ok</button>
 
-            </form>
-
-
-            <div class="gruppoinput" id="firstimg">
-                <label class="btn btn-default btn-info" style="margin-top: 8px">
-                    Browse <input type="file" style="display: none;" class="inputfile"/>
-                </label>
-                <button type="button" class="btn btn-outline-danger" disabled="disabled">Ok</button>
+                <div class="btn-group" role="group" aria-label="Basic example" style="margin-bottom: 8px">
+                    <button type="button" class="btn btn-success" id="save" data-toggle="modal" data-target="#myModal">
+                        Salva
+                    </button>
+                    <button type="button" class="btn btn-danger" id="remove_all" onclick="removeContent()">Svuota</button>
+                </div>
             </div>
 
-            <div class="btn-group" role="group" aria-label="Basic example" style="margin-top: 8px; margin-bottom: 8px">
-                <button type="button" class="btn btn-success" id="save" data-toggle="modal" data-target="#myModal">
-                    Salva
-                </button>
-                <button type="button" class="btn btn-danger" id="remove_all" onclick="removeContent()">Svuota</button>
-            </div>
+
 
         </div>
 
+    <div class="row" style="margin-top: 16px;" id="contenitore">
+        <div class="col-md-6">
 
-        <div class="col-md-8">
-
+            <ul>
+                <li>
+                    <h1>Modello 4-3-3</h1>
+                </li>
+                <li class="ui-state-default"><img src="img/realmadrid.png" /></li>
+                <h4>Terzino sinistro</h4>
+                <li class="ui-state-default"><img src="img/terzinoSX.png" /></li>
+                <h4>Terzino destro</h4>
+                <li class="ui-state-default"><img src="img/terzinoDX.png" /></li>
+                <h4>Distanza reparti difesa/attacco</h4>
+                <li class="ui-state-default"><img src="img/terzinoDX.png" /></li>
+            </ul>
             <div class="waiting">
 
             </div>
+        </div>
+        <div class="col-md-6" id="contenuto">
 
             <ul id="sortable">
 
+                <li>
+                    <h1>Modello 4-3-3</h1>
+                </li>
+                <li class="ui-state-default"><img src="img/realmadrid.png" /></li>
+                <h4>Terzino sinistro</h4>
+                <li class="ui-state-default"><img src="img/terzinoSX.png" /></li>
+                <h4>Terzino destro</h4>
+                <li class="ui-state-default"><img src="img/terzinoDX.png" /></li>
+                <h4>Distanza reparti difesa/attacco</h4>
+                <li class="ui-state-default"><img src="img/terzinoDX.png" /></li>
             </ul>
-
         </div>
     </div>
+    </div>
+
+
+
+
     <!-- Modal -->
     <div class="modal fade bd-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
