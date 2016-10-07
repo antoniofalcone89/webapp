@@ -45,23 +45,34 @@
         //Scrivo il nome del file selezionato
         $(document).on('change', '.inputfile', function() {
             var dio = ($(this).val().split('\\').pop());    //Nome del file
-
-            //Se ho già scelto una volta il file devo sostituirlo
-            if($(this).closest('.gruppoinput').children('p').length){
-                $(this).closest('.gruppoinput').children('p').remove(); //Sostituisco il nome del file
+            if(squadra == 1){
+                //Se ho già scelto una volta il file devo sostituirlo
+                if($(this).closest('.gruppoinput1').children('p').length){
+                    $(this).closest('.gruppoinput1').children('p').remove(); //Sostituisco il nome del file
+                }
+                //Se scelgo il file per la prima volta allora appendo il nome del file
+                $(this).closest('.gruppoinput1').append('<p>'+dio+'</p>');
+                $(this).parent().next().prop('disabled', false);
             }
-            //Se scelgo il file per la prima volta allora appendo il nome del file
-            $(this).closest('.gruppoinput').append('<p>'+dio+'</p>');
-            $(this).parent().next().prop('disabled', false);
+            else if(squadra == 2){
+                //Se ho già scelto una volta il file devo sostituirlo
+                if($(this).closest('.gruppoinput2').children('p').length){
+                    $(this).closest('.gruppoinput2').children('p').remove(); //Sostituisco il nome del file
+                }
+                //Se scelgo il file per la prima volta allora appendo il nome del file
+                $(this).closest('.gruppoinput2').append('<p>'+dio+'</p>');
+                $(this).parent().next().prop('disabled', false);
+            }
+
         });
 
         //Rimuovo gli elementi su cui clicco nella colonna di destra
         $(document).on('click', '#remove_elem', function() {
-            $('div .col-md-8').effect("highlight", {}, 1000);
+            $('#contenuto1').effect("highlight", {}, 1000);
             //$('div .col-md-8').css('cursor', 'crosshair');
-            $('div .col-md-8').click(function(e){
+            $('#contenuto1').click(function(e){
                 $(e.target).remove();
-                $('div .col-md-8').off('click'); //Dopo aver rimosso un elemento disattivo, bisogna cliccare di nuovo su remove per rim un altro
+                $('#contenuto1').off('click'); //Dopo aver rimosso un elemento disattivo, bisogna cliccare di nuovo su remove per rim un altro
                 //$('#sortable').css('cursor', 'default');
             });
         });
@@ -77,10 +88,17 @@
 
         //Scroll sugli elementi nella tabella di destra
         $( function() {
-            $( "#sortable" ).sortable({
-                placeholder: "ui-state-highlight"
-            });
-            $( "#sortable" ).disableSelection();
+
+                $( "#sortable1" ).sortable({
+                    placeholder: "ui-state-highlight"
+                });
+                $( "#sortable1" ).disableSelection();
+
+                $( "#sortable2" ).sortable({
+                    placeholder: "ui-state-highlight"
+                });
+                $( "#sortable2" ).disableSelection();
+
         } );
 
 
@@ -133,7 +151,7 @@
                         <a class="nav-link" href="modulo.html">Modulo</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Team</a>
+                        <a class="nav-link" href="squadre.html">Squadre</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Last link</a>
@@ -173,18 +191,18 @@
 
 
             <div class="col-md-4">
-                <form class="form-inline" id="firstInput">
+                <form class="form-inline" id="firstInput1">
                     <div class="form-group">
                         <input type="text" class="form-control" id="title" placeholder="Titolo">
                     </div>
-                    <button type="button" class="btn btn-primary" id="inserisciTitolo" onclick="setTitle(title.value)">Ok</button>
+                    <button type="button" class="btn btn-primary" id="inserisciTitolo" onclick="setTitle()">Ok</button>
 
                 </form>
             </div>
 
 
             <div class="col-md-4">
-                <div class="gruppoinput" id="firstimg">
+                <div class="gruppoinput1" id="firstimg1">
                     <label class="btn btn-default btn-info">
                         Browse <input type="file" style="display: none;" class="inputfile"/>
                     </label>
@@ -195,7 +213,7 @@
                     <button type="button" class="btn btn-success" id="save" data-toggle="modal" data-target="#myModal">
                         Salva
                     </button>
-                    <button type="button" class="btn btn-danger" id="remove_all" onclick="removeContent()">Svuota</button>
+                    <button type="button" class="btn btn-danger" id="remove_all" onclick="removeSquadra1()">Svuota</button>
                 </div>
             </div>
 
@@ -222,9 +240,9 @@
 
             </div>
         </div>
-        <div class="col-md-6" id="contenuto">
+        <div class="col-md-6" id="contenuto1">
 
-            <ul id="sortable">
+            <ul id="sortable1">
 
                 <li>
                     <h1>Modello 4-3-3</h1>

@@ -35,6 +35,9 @@
             list-style-type: none;
             padding: 0;
         }
+        .modal-sm {
+            max-width: 700px;
+        }
     </style>
 
     <script>
@@ -45,15 +48,25 @@
         //Scrivo il nome del file selezionato
         $(document).on('change', '.inputfile', function() {
             var dio = ($(this).val().split('\\').pop());    //Nome del file
-            var estensione = ($(this).val().split('.').pop().toLowerCase());    //Estensione del file
-
-            //Se ho già scelto una volta il file ma voglio sostituirlo AND l'estensione è quella giusta
-            if($(this).closest('.gruppoinput').children('p').length){
-                $(this).closest('.gruppoinput').children('p').remove(); //Sostituisco il nome del file
+            if(squadra == 1){
+                //Se ho già scelto una volta il file devo sostituirlo
+                if($(this).closest('.gruppoinput1').children('p').length){
+                    $(this).closest('.gruppoinput1').children('p').remove(); //Sostituisco il nome del file
+                }
+                //Se scelgo il file per la prima volta allora appendo il nome del file
+                $(this).closest('.gruppoinput1').append('<p>'+dio+'</p>');
+                $(this).parent().next().prop('disabled', false);
             }
-            //Se scelgo il file per la prima volta allora controllo l'estensione, se è ok appendo il nome del file
-            $(this).closest('.gruppoinput').append('<p>'+dio+'</p>');
-            $(this).parent().next().prop('disabled', false);
+            else if(squadra == 2){
+                //Se ho già scelto una volta il file devo sostituirlo
+                if($(this).closest('.gruppoinput2').children('p').length){
+                    $(this).closest('.gruppoinput2').children('p').remove(); //Sostituisco il nome del file
+                }
+                //Se scelgo il file per la prima volta allora appendo il nome del file
+                $(this).closest('.gruppoinput2').append('<p>'+dio+'</p>');
+                $(this).parent().next().prop('disabled', false);
+            }
+
         });
 
         //Rimuovo gli elementi su cui clicco nella colonna di destra
@@ -78,10 +91,18 @@
 
         //Scroll sugli elementi nella tabella di destra
         $( function() {
-            $( "#sortable" ).sortable({
-                placeholder: "ui-state-highlight"
-            });
-            $( "#sortable" ).disableSelection();
+            if(squadra == 1){
+                $( "#sortable1" ).sortable({
+                    placeholder: "ui-state-highlight"
+                });
+                $( "#sortable1" ).disableSelection();
+            }
+            else if(squadra == 2){
+                $( "#sortable2" ).sortable({
+                    placeholder: "ui-state-highlight"
+                });
+                $( "#sortable2" ).disableSelection();
+            }
         } );
 
 
@@ -134,7 +155,7 @@
                         <a class="nav-link" href="modulo.html">Modulo</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Team</a>
+                        <a class="nav-link" href="squadre.html">Squadre</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Last link</a>
@@ -157,7 +178,7 @@
 
     <div class="row" style="padding-top: 25px;">
 
-        <!--Bottoni vari barra sinistra-->
+        <!--Bottoni barra centrale -->
         <div class="col-md-4" id="strumenti">
 
             <div class="dropdown">
@@ -173,16 +194,16 @@
             </div>
 
 
-            <form class="form-inline" id="firstInput" style="margin-top: 8px;">
+            <form class="form-inline" id="firstInput1" style="margin-top: 8px;">
                 <div class="form-group">
                     <input type="text" class="form-control" id="title" placeholder="Titolo">
                 </div>
-                <button type="button" class="btn btn-primary" id="inserisciTitolo" onclick="setTitle(title.value)">Ok</button>
+                <button type="button" class="btn btn-primary" id="inserisciTitolo" onclick="setTitle()">Ok</button>
 
             </form>
 
 
-            <div class="gruppoinput" id="firstimg">
+            <div class="gruppoinput1" id="firstimg1">
                 <label class="btn btn-default btn-info" style="margin-top: 8px">
                     Browse <input type="file" style="display: none;" class="inputfile"/>
                 </label>
@@ -193,27 +214,27 @@
                 <button type="button" class="btn btn-success" id="save" data-toggle="modal" data-target="#myModal">
                     Salva
                 </button>
-                <button type="button" class="btn btn-danger" id="remove_all" onclick="removeContent()">Svuota</button>
+                <button type="button" class="btn btn-danger" id="remove_all" onclick="removeSquadra1()">Svuota</button>
             </div>
 
         </div>
+        <div class="waiting">
+
+        </div>
+
+        <div class="col-md-8" id="contenuto1">
 
 
-        <div class="col-md-8">
 
-            <div class="waiting">
-
-            </div>
-
-            <ul id="sortable">
+            <ul id="sortable1">
 
             </ul>
 
         </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade bd-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+    <div class="modal fade bd-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">

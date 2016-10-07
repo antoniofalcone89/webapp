@@ -6,7 +6,13 @@ function setImg(){
     var ext = ".png";
     var fullImg = img.concat(ext);
     //alert(fullImg);
-    $('#sortable').append('<li class="ui-state-default"><img src='+fullImg+' /></li>');
+    if(squadra == 1){
+        $('#sortable1').append('<li class="ui-state-default"><img src='+fullImg+' /></li>');
+    }
+    else if(squadra == 2){
+        $('#sortable2').append('<li class="ui-state-default"><img src='+fullImg+' /></li>');
+    }
+
 }
 
 var img;
@@ -50,55 +56,129 @@ function removeContent() {
     $('#contenuto').append('<ul id="sortable"> </ul>');
 }
 
-function removeContent2() {
-    $('.col-md-8').empty();
-    $('.col-md-8').append('<div class="waiting"></div> <ul id="sortable"> </ul>');
-    $('.waiting').hide();
+function removeSquadra1() {
+    $('#contenuto1').empty();
+    $('#contenuto1').append('<ul id="sortable1"> </ul>');
+}
+
+function removeSquadra2() {
+    $('#contenuto2').empty();
+    $('#contenuto2').append('<ul id="sortable2"> </ul>');
+}
+
+var squadra = 1;
+
+function mostraBottoniSquadra2() {
+    $('#bottoni_squadra1').hide();
+    $('#bottoni_squadra2').show();
+    squadra = 2;
+}
+
+function mostraBottoniSquadra1() {
+    $('#bottoni_squadra2').hide();
+    $('#bottoni_squadra1').show();
+    squadra = 1;
+}
+
+function captureCurrentDiv()
+{
+    html2canvas([document.getElementById('contenitore')], {
+        onrendered: function(canvas)
+        {
+            var img = canvas.toDataURL()
+            $.post("save.php", {data: img}, function (file) {
+                window.location.href =  "download.php?path="+ file});
+        }
+    });
 }
 
 function setTitle(){
-    var titolo = document.getElementById('title').value;
-    $('#sortable').prepend('<li class="ui-state-default"><h1>'+titolo+'</h1></li>');
-    $('#title').val('');
-    $('#sortable').css('cursor', 'default');
+    //var titolo = document.getElementById('title').value;
+    if(squadra == 1){
+        var title = $('#title').val();
+        $('#sortable1').prepend('<li class="ui-state-default"><h1>'+title+'</h1></li>');
+        $('#title').val('');
+        $('#sortable1').css('cursor', 'default');
+    }
+    else if(squadra == 2){
+        var title = $('#title2').val();
+        $('#sortable2').prepend('<li class="ui-state-default"><h1>'+title+'</h1></li>');
+        $('#title').val('');
+        $('#sortable2').css('cursor', 'default');
+    }
 }
 
 function setText(){
     var testo = document.getElementById('text').value;
-    $('#sortable').append('<li class="ui-state-default"><h4>'+testo+'</h4></li>');
-    $('#text').val('');
-    $('#sortable').css('cursor', 'default');
+
+
+    if(squadra == 1){
+        $('#sortable1').prepend('<li class="ui-state-default"><h4>'+testo+'</h4></li>');
+        $('#text').val('');
+        $('#sortable1').css('cursor', 'default');
+    }
+    else if(squadra == 2){
+        $('#sortable2').prepend('<li class="ui-state-default"><h4>'+testo+'</h4></li>');
+        $('#text').val('');
+        $('#sortable2').css('cursor', 'default');
+    }
 }
 
+//PER AGGIUNGERE BOTTONI INFOGRAFICHE
 var x = 1; //initlal text box count
 function addElements(){
     var max_fields      = 10; //maximum input boxes allowed
     var wrapper         = $(".col-md-4"); //Fields wrapper
 
+    if(squadra == 1){
+        if(x < max_fields){ //max input box allowed
+            x++;
+            $('#firstimg1').after('<div class="gruppoinput1"> <label class="btn btn-default btn-info" style="margin-top: 8px">Browse <input type="file" style="display: none;" class="inputfile"/> </label> <button type="button" class="btn btn-outline-danger" disabled="disabled">Ok</button> <span id="remove_field" class="glyphicon glyphicon-remove" aria-hidden="true" style="vertical-align: middle"></span> </div>');
+        }
 
-    if(x < max_fields){ //max input box allowed
-        x++;
-        $('#firstimg').after('<div class="gruppoinput"> <label class="btn btn-default btn-info" style="margin-top: 8px">Browse <input type="file" style="display: none;" class="inputfile"/> </label> <button type="button" class="btn btn-outline-danger" disabled="disabled">Ok</button> <span id="remove_field" class="glyphicon glyphicon-remove" aria-hidden="true" style="vertical-align: middle"></span> </div>');
+
+        $(wrapper).on("click","#remove_field", function(){ //user click on remove text
+            $(this).parent('div').remove(); x--;
+        })
     }
+    else if(squadra == 2){
+        if(x < max_fields){ //max input box allowed
+            x++;
+            $('#firstimg2').after('<div class="gruppoinput2"> <label class="btn btn-default btn-info" style="margin-top: 8px">Browse <input type="file" style="display: none;" class="inputfile"/> </label> <button type="button" class="btn btn-outline-danger" disabled="disabled">Ok</button> <span id="remove_field" class="glyphicon glyphicon-remove" aria-hidden="true" style="vertical-align: middle"></span> </div>');
+        }
 
 
-    $(wrapper).on("click","#remove_field", function(){ //user click on remove text
-        $(this).parent('div').remove(); x--;
-    })
+        $(wrapper).on("click","#remove_field", function(){ //user click on remove text
+            $(this).parent('div').remove(); x--;
+        })
+    }
 }
 
+//PER AGGIUNGERE ELEMENTI TESTO
 var y = 1; //initlal text box count
 function addText(){
     var max_fieldsY      = 10; //maximum input boxes allowed
     var wrapperY         = $(".col-md-4"); //Fields wrapper
 
+    if(squadra == 1){
+        if(x < max_fieldsY){ //max input box allowed
+            y++;
+            $('#firstInput1').after('<form class="form-inline" id="firstInput" style="margin-top: 8px;"><div class="form-group"><input type="text" class="form-control" id="text" placeholder="Testo"></div> <button type="button" class="btn btn-primary" id="inserisciTitolo" onclick="setText(text.value)">Ok</button> <span id="remove_text_field" class="glyphicon glyphicon-remove" aria-hidden="true" style="vertical-align: middle"></span> </form>');
+        }
 
-    if(x < max_fieldsY){ //max input box allowed
-        y++;
-        $('#firstInput').after('<form class="form-inline" id="firstInput" style="margin-top: 8px;"><div class="form-group"><input type="text" class="form-control" id="text" placeholder="Testo"></div> <button type="button" class="btn btn-primary" id="inserisciTitolo" onclick="setText(text.value)">Ok</button> <span id="remove_text_field" class="glyphicon glyphicon-remove" aria-hidden="true" style="vertical-align: middle"></span> </form>');
+        $(wrapperY).on("click","#remove_text_field", function(){ //user click on remove text
+            $(this).parent('form').remove(); y--;
+        })
+    }
+    else if(squadra == 2){
+        if(x < max_fieldsY){ //max input box allowed
+            y++;
+            $('#firstInput2').after('<form class="form-inline" id="firstInput" style="margin-top: 8px;"><div class="form-group"><input type="text" class="form-control" id="text" placeholder="Testo"></div> <button type="button" class="btn btn-primary" id="inserisciTitolo" onclick="setText(text.value)">Ok</button> <span id="remove_text_field" class="glyphicon glyphicon-remove" aria-hidden="true" style="vertical-align: middle"></span> </form>');
+        }
+
+        $(wrapperY).on("click","#remove_text_field", function(){ //user click on remove text
+            $(this).parent('form').remove(); y--;
+        })
     }
 
-    $(wrapperY).on("click","#remove_text_field", function(){ //user click on remove text
-        $(this).parent('form').remove(); y--;
-    })
 }
