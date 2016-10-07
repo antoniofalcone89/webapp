@@ -35,9 +35,6 @@
             list-style-type: none;
             padding: 0;
         }
-        .modal-sm {
-            max-width: 700px;
-        }
     </style>
 
     <script>
@@ -71,11 +68,11 @@
 
         //Rimuovo gli elementi su cui clicco nella colonna di destra
         $(document).on('click', '#remove_elem', function() {
-            $('div .col-md-8').effect("highlight", {}, 1000);
+            $('#contenuto1').effect("highlight", {}, 1000);
             //$('div .col-md-8').css('cursor', 'crosshair');
-            $('div .col-md-8').click(function(e){
+            $('#contenuto1').click(function(e){
                 $(e.target).remove();
-                $('div .col-md-8').off('click'); //Dopo aver rimosso un elemento disattivo, bisogna cliccare di nuovo su remove per rim un altro
+                $('#contenuto1').off('click'); //Dopo aver rimosso un elemento disattivo, bisogna cliccare di nuovo su remove per rim un altro
                 //$('#sortable').css('cursor', 'default');
             });
         });
@@ -91,25 +88,24 @@
 
         //Scroll sugli elementi nella tabella di destra
         $( function() {
-            if(squadra == 1){
+
                 $( "#sortable1" ).sortable({
                     placeholder: "ui-state-highlight"
                 });
                 $( "#sortable1" ).disableSelection();
-            }
-            else if(squadra == 2){
+
                 $( "#sortable2" ).sortable({
                     placeholder: "ui-state-highlight"
                 });
                 $( "#sortable2" ).disableSelection();
-            }
+
         } );
 
 
         $(document).ready(function(){
 
 
-            var element = $(".col-md-8"); // global variable
+            var element = $("#contenitore"); // global variable
             var getCanvas; // global variable
 
             $("#save").on('click', function () {
@@ -180,66 +176,99 @@
 
 
 
-    <div class="row" style="padding-top: 25px;">
+    <div class="row">
 
-        <!--Bottoni barra centrale -->
-        <div class="col-md-4" id="strumenti">
 
-            <div class="dropdown">
-                <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Aggiungi
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#" onclick="addElements()">Infografica</a>
-                    <a class="dropdown-item" href="#" onclick="addText()">Testo</a>
+            <div class="col-md-4">
+                <div class="dropdown">
+                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Aggiungi
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#" onclick="addElements()">Infografica</a>
+                        <a class="dropdown-item" href="#" onclick="addText()">Testo</a>
+                    </div>
+                    <button type="button" class="btn btn-outline-primary" id="remove_elem">Rimuovi</button>
+
                 </div>
-                <button type="button" class="btn btn-outline-primary" id="remove_elem">Rimuovi</button>
-
             </div>
 
 
-            <form class="form-inline" id="firstInput1" style="margin-top: 8px;">
-                <div class="form-group">
-                    <input type="text" class="form-control" id="title" placeholder="Titolo">
+            <div class="col-md-4">
+                <form class="form-inline" id="firstInput1">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="title" placeholder="Titolo">
+                    </div>
+                    <button type="button" class="btn btn-primary" id="inserisciTitolo" onclick="setTitle()">Ok</button>
+
+                </form>
+            </div>
+
+
+            <div class="col-md-4">
+                <div class="gruppoinput1" id="firstimg1">
+                    <label class="btn btn-default btn-info">
+                        Browse <input type="file" style="display: none;" class="inputfile"/>
+                    </label>
+                    <button type="button" class="btn btn-outline-danger" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
                 </div>
-                <button type="button" class="btn btn-primary" id="inserisciTitolo" onclick="setTitle()">Ok</button>
 
-            </form>
-
-
-            <div class="gruppoinput1" id="firstimg1">
-                <label class="btn btn-default btn-info" style="margin-top: 8px">
-                    Browse <input type="file" style="display: none;" class="inputfile"/>
-                </label>
-                <button type="button" class="btn btn-outline-danger" disabled="disabled">Ok</button>
+                <div class="btn-group" role="group" aria-label="Basic example" style="margin-bottom: 8px">
+                    <button type="button" class="btn btn-success" id="save" onclick="captureCurrentDiv()">
+                        Salva
+                    </button>
+                    <button type="button" class="btn btn-danger" id="remove_all" onclick="removeSquadra1()">Svuota</button>
+                </div>
             </div>
 
-            <div class="btn-group" role="group" aria-label="Basic example" style="margin-top: 8px; margin-bottom: 8px">
-                <button type="button" class="btn btn-success" id="save" onclick="captureSinglePlayer()">
-                    Salva
-                </button>
-                <button type="button" class="btn btn-danger" id="remove_all" onclick="removeSquadra1()">Svuota</button>
-            </div>
+
 
         </div>
-        <div class="waiting">
 
+    <div class="row" style="margin-top: 16px;" id="contenitore">
+        <div class="col-md-6">
+
+            <ul>
+                <li>
+                    <h1>Modello 4-3-3</h1>
+                </li>
+                <li class="ui-state-default"><img src="img/realmadrid.png" /></li>
+                <h4>Terzino sinistro</h4>
+                <li class="ui-state-default"><img src="img/terzinoSX.png" /></li>
+                <h4>Terzino destro</h4>
+                <li class="ui-state-default"><img src="img/terzinoDX.png" /></li>
+                <h4>Distanza reparti difesa/attacco</h4>
+                <li class="ui-state-default"><img src="img/barplot_distanzeDIFATT.png" /></li>
+            </ul>
+            <div class="waiting">
+
+            </div>
         </div>
-
-        <div class="col-md-8" id="contenuto1">
-
-
+        <div class="col-md-6" id="contenuto1">
 
             <ul id="sortable1">
 
+                <li>
+                    <h1>Modello 4-3-3</h1>
+                </li>
+                <li class="ui-state-default"><img src="img/realmadrid.png" /></li>
+                <h4>Terzino sinistro</h4>
+                <li class="ui-state-default"><img src="img/terzinoSX.png" /></li>
+                <h4>Terzino destro</h4>
+                <li class="ui-state-default"><img src="img/terzinoDX.png" /></li>
+                <h4>Distanza reparti difesa/attacco</h4>
+                <li class="ui-state-default"><img src="img/barplot_distanzeDIFATT.png" /></li>
             </ul>
-
         </div>
     </div>
+    </div>
+
+
+
 
     <!-- Modal -->
-    <!--<div class="modal fade bd-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm" role="document">
+    <!--<div class="modal fade bd-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
