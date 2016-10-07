@@ -92,6 +92,18 @@ function captureCurrentDiv()
     });
 }
 
+function captureSinglePlayer()
+{
+    html2canvas([document.getElementById('contenuto1')], {
+        onrendered: function(canvas)
+        {
+            var img = canvas.toDataURL()
+            $.post("save.php", {data: img}, function (file) {
+                window.location.href =  "download.php?path="+ file});
+        }
+    });
+}
+
 function setTitle(){
     //var titolo = document.getElementById('title').value;
     if(squadra == 1){
