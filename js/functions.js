@@ -15,6 +15,18 @@ function setImg(){
 
 }
 
+function setImg2(){
+    var fullImg = "disposizione.png";
+    //alert(fullImg);
+    if(squadra == 1){
+        $('#sortable1').append('<li class="ui-state-default"><img src='+fullImg+' /></li>');
+    }
+    else if(squadra == 2){
+        $('#sortable2').append('<li class="ui-state-default"><img src='+fullImg+' /></li>');
+    }
+
+}
+
 var img;
 
 function myAjax (nomefile) {
@@ -45,6 +57,45 @@ function myAjax (nomefile) {
         alert("Richiesto un file di tipo csv");
     }
 
+}
+
+
+//INFOGRAFICA DISPOSIZIONE IN CAMPO
+function disposizione(filenames, numfiles) {
+    var nomifiles = filenames;
+    var allcsv = 0;
+    $.each(filenames,function(index) {
+        estensione = filenames[index].split('.').pop().toLowerCase();
+        if(estensione == "csv"){
+            allcsv = 0;
+        }
+        else{
+            allcsv = 1;
+        }
+    });
+    if(allcsv == 1){
+        alert("Tutti i file devono essere di tipo .csv");
+    }
+    else{
+        $.ajax( { type : 'POST',
+            data : {arrayFiles: nomifiles},
+            url  : 'actionDisposizione.php',              // <=== CALL THE PHP FUNCTION HERE.
+            success: function ( data ) {
+                //alert( data );               // <=== VALUE RETURNED FROM FUNCTION.
+            },
+            error: function (xhr, status, error) {
+                // executed if something went wrong during call
+                if (xhr.status > 0) alert('got error: ' + status); // status 0 - when load is interrupted
+            },
+            complete: function (data) {
+                setImg2();
+                $('.waiting').hide();
+            },
+            beforeSend:function(){
+                $('.waiting').show();
+            }
+        });
+    }
 }
 
 function removeCanvas(){
@@ -136,7 +187,7 @@ function setText(){
     }
 }
 
-//PER AGGIUNGERE BOTTONI INFOGRAFICHE
+//PER AGGIUNGERE BOTTONI HEATMAP
 var x = 1; //initlal text box count
 function addElements(){
     var max_fields      = 10; //maximum input boxes allowed
@@ -145,7 +196,7 @@ function addElements(){
     if(squadra == 1){
         if(x < max_fields){ //max input box allowed
             x++;
-            $('#firstimg1').after('<div class="gruppoinput1"> <label class="btn btn-default btn-info" style="margin-top: 8px">Browse <input type="file" style="display: none;" class="inputfile"/> </label> <button type="button" class="btn btn-outline-danger" disabled="disabled">Ok</button> <span id="remove_field" class="glyphicon glyphicon-remove" aria-hidden="true" style="vertical-align: middle"></span> </div>');
+            $('#firstimg1').after('<div class="gruppoinput1"><p class="lead" style="margin-bottom: 0;">Heatmap</p><label class="btn btn-default btn-info" style="margin-top: 8px">Browse <input type="file" style="display: none;" class="inputfile"/> </label> <button type="button" class="btn btn-outline-danger" disabled="disabled">Ok</button> <span id="remove_field" class="glyphicon glyphicon-remove" aria-hidden="true" style="vertical-align: middle"></span> </div>');
         }
 
 
@@ -156,7 +207,7 @@ function addElements(){
     else if(squadra == 2){
         if(x < max_fields){ //max input box allowed
             x++;
-            $('#firstimg2').after('<div class="gruppoinput2"> <label class="btn btn-default btn-info" style="margin-top: 8px">Browse <input type="file" style="display: none;" class="inputfile"/> </label> <button type="button" class="btn btn-outline-danger" disabled="disabled">Ok</button> <span id="remove_field" class="glyphicon glyphicon-remove" aria-hidden="true" style="vertical-align: middle"></span> </div>');
+            $('#firstimg2').after('<div class="gruppoinput2"><p class="lead" style="margin-bottom: 0;">Heatmap</p><label class="btn btn-default btn-info" style="margin-top: 8px">Browse <input type="file" style="display: none;" class="inputfile"/> </label> <button type="button" class="btn btn-outline-danger" disabled="disabled">Ok</button> <span id="remove_field" class="glyphicon glyphicon-remove" aria-hidden="true" style="vertical-align: middle"></span> </div>');
         }
 
 

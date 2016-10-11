@@ -78,12 +78,51 @@
         });
 
         //Eseguo lo script python sul file selezionato
-        $(document).on('click', '.btn-outline-danger', function() {
+        $(document).on('click', '.gruppoinput1 > .btn-outline-danger', function() {
             var par = $(this).parent();
 
             var testo = par.children().last().text();
             //alert(testo);
             myAjax(testo);
+        });
+
+        var names = [];
+        var numfiles;
+        //Eseguo lo script python sui file per la disposizione
+        $(document).on('click', '.gruppoinputDisposizione1 > #disposizioneButton1', function() {
+            //alert(testo);
+            disposizione(names, numfiles);
+        });
+
+        //Eseguo lo script python sui file csv dei giocatori
+        $(document).on('change', '#disposizione1', function() {
+
+            numfiles = $(this).get(0).files.length;
+            for (var i = 0; i < numfiles; ++i) {
+                names.push($(this).get(0).files[i].name);
+                //alert(names[i]);
+            }
+            //Scrivo il nome del file selezionato
+            if(squadra == 1){
+                //Se ho già scelto una volta i file allora sostituisco
+                if($(this).closest('.gruppoinputDisposizione1').children('p').length){
+                    $(this).closest('.gruppoinputDisposizione1').children('p.numfiles').remove(); //Sostituisco il numero
+                }
+                //Se scelgo il file per la prima volta allora appendo il nome del file
+                $(this).closest('.gruppoinputDisposizione1').append('<p class="numfiles">Hai selezionato '+numfiles+' files</p>');
+                $(this).parent().next().prop('disabled', false);
+            }
+            else if(squadra == 2){
+                //Se ho già scelto una volta il file devo sostituirlo
+                if($(this).closest('.gruppoinputDisposizione2').children('p').length){
+                    $(this).closest('.gruppoinputDisposizione2').children('p.numfiles').remove(); //Sostituisco il nome del file
+                }
+                //Se scelgo il file per la prima volta allora appendo il nome del file
+                $(this).closest('.gruppoinputDisposizione2').append('<p class="numfiles">Hai selezionato '+numfiles+' files</p>');
+                $(this).parent().next().prop('disabled', false);
+            }
+
+
         });
 
         //Scroll sugli elementi nella tabella di destra
@@ -185,7 +224,7 @@
                         Aggiungi
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#" onclick="addElements()">Infografica</a>
+                        <a class="dropdown-item" href="#" onclick="addElements()">Heatmap</a>
                         <a class="dropdown-item" href="#" onclick="addText()">Testo</a>
                     </div>
                     <button type="button" class="btn btn-outline-primary" id="remove_elem">Rimuovi</button>
@@ -202,16 +241,27 @@
                     <button type="button" class="btn btn-primary" id="inserisciTitolo" onclick="setTitle()">Ok</button>
 
                 </form>
+
             </div>
 
 
             <div class="col-md-4">
+                <div class="gruppoinputDisposizione1">
+                    <p class="lead" style="margin-bottom: 0;">Disposizione</p>
+                    <label class="btn btn-default btn-info">
+                        Browse <input type="file" id="disposizione1" style="display: none;" class="inputDisposizione1" multiple="multiple"/>
+                    </label>
+                    <button type="button" class="btn btn-outline-danger" id="disposizioneButton1" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
+                </div>
+
                 <div class="gruppoinput1" id="firstimg1">
+                    <p class="lead" style="margin-bottom: 0;">Heatmap</p>
                     <label class="btn btn-default btn-info">
                         Browse <input type="file" style="display: none;" class="inputfile"/>
                     </label>
-                    <button type="button" class="btn btn-outline-danger" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
+                    <button type="submit" class="btn btn-outline-danger" disabled="enabled" style="margin-bottom: 8px;">Ok</button>
                 </div>
+
 
                 <div class="btn-group" role="group" aria-label="Basic example" style="margin-bottom: 8px">
                     <button type="button" class="btn btn-success" id="save" onclick="captureCurrentDiv()">
@@ -246,7 +296,7 @@
         </div>
         <div class="col-md-6" id="contenuto1">
 
-            <ul id="sortable1">
+            <ul id="sortable2">
 
                 <li>
                     <h1>Modello 4-3-3</h1>
