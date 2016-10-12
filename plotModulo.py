@@ -1,132 +1,174 @@
-import matplotlib.pyplot as plt
+import cgi
+import cgitb; cgitb.enable()
 import matplotlib
+matplotlib.use( 'Agg' )
 import numpy as np
 from scipy.stats.kde import gaussian_kde
+import os,sys
+import pylab
+from PIL import Image
 
-#Difesa da sx verso dx
-x1, y1 = np.genfromtxt('terzinoSX.csv', delimiter=',', unpack=True)
-x2, y2 = np.genfromtxt('centraleSX.csv', delimiter=',', unpack=True)
-x3, y3 = np.genfromtxt('centraleDX.csv', delimiter=',', unpack=True)
-x4, y4 = np.genfromtxt('terzinoDX.csv', delimiter=',', unpack=True)
-difesaX, difesaY = np.genfromtxt('difesa.csv', delimiter=',', unpack=True)
+def crop(arg1):
+    # size is width/height
+    img = Image.open(arg1)
+    left = 88
+    top = 41
+    width = 545
+    height = 321
+    box = (left, top, left+width, top+height)
+    #area = img.crop(box)
 
-#Centrocampo da sx verso dx
-x11, y11 = np.genfromtxt('centrSX.csv', delimiter=',', unpack=True)
-x22, y22 = np.genfromtxt('centrCC.csv', delimiter=',', unpack=True)
-x33, y33 = np.genfromtxt('centrDX.csv', delimiter=',', unpack=True)
+    #area.save('cropped_0_388_image1', 'jpeg')
+    output_img = img.crop(box)
+    output_img.save(filename, 'png')
 
-#attacco da sx verso dx
-x111, y111 = np.genfromtxt('alaSX.csv', delimiter=',', unpack=True)
-x222, y222 = np.genfromtxt('puntaCC.csv', delimiter=',', unpack=True)
-x333, y333 = np.genfromtxt('alaDX.csv', delimiter=',', unpack=True)
+def make_fig():
+    global filename
+    global filename1,filename2,filename3,filename4,filename5,filename6,filename7,filename8,filename9,filename10
+    filename1 = sys.argv[1]
+    filename2 = sys.argv[2]
+    filename3 = sys.argv[3]
+    filename4 = sys.argv[4]
+    filename5 = sys.argv[5]
+    filename6 = sys.argv[6]
+    filename7 = sys.argv[7]
+    filename8 = sys.argv[8]
+    filename9 = sys.argv[9]
+    filename10 = sys.argv[10]
 
-#difesaY = difesaY[np.logical_not(np.isnan(difesaY))]
-#difesaX = difesaX[np.logical_not(np.isnan(difesaX))]
+    #Squadra
+    x1, y1 = np.genfromtxt(filename1, delimiter=',', unpack=True)
+    x2, y2 = np.genfromtxt(filename2, delimiter=',', unpack=True)
+    x3, y3 = np.genfromtxt(filename3, delimiter=',', unpack=True)
+    x4, y4 = np.genfromtxt(filename4, delimiter=',', unpack=True)
+    x11, y11 = np.genfromtxt(filename5, delimiter=',', unpack=True)
+    x22, y22 = np.genfromtxt(filename6, delimiter=',', unpack=True)
+    x33, y33 = np.genfromtxt(filename7, delimiter=',', unpack=True)
+    x111, y111 = np.genfromtxt(filename8, delimiter=',', unpack=True)
+    x222, y222 = np.genfromtxt(filename9, delimiter=',', unpack=True)
+    x333, y333 = np.genfromtxt(filename10, delimiter=',', unpack=True)
 
-y1 = y1[np.logical_not(np.isnan(y1))]
-x1 = x1[np.logical_not(np.isnan(x1))]
+    #Difesa da sx verso dx
+    # x1, y1 = np.genfromtxt('terzinoSX.csv', delimiter=',', unpack=True)
+    # x2, y2 = np.genfromtxt('centraleSX.csv', delimiter=',', unpack=True)
+    # x3, y3 = np.genfromtxt('centraleDX.csv', delimiter=',', unpack=True)
+    # x4, y4 = np.genfromtxt('terzinoDX.csv', delimiter=',', unpack=True)
 
-y2 = y2[np.logical_not(np.isnan(y2))]
-x2 = x2[np.logical_not(np.isnan(x2))]
+    #Centrocampo da sx verso dx
+    # x11, y11 = np.genfromtxt('centrSX.csv', delimiter=',', unpack=True)
+    # x22, y22 = np.genfromtxt('centrCC.csv', delimiter=',', unpack=True)
+    # x33, y33 = np.genfromtxt('centrDX.csv', delimiter=',', unpack=True)
 
-y3 = y3[np.logical_not(np.isnan(y3))]
-x3 = x3[np.logical_not(np.isnan(x3))]
+    #attacco da sx verso dx
+    # x111, y111 = np.genfromtxt('alaSX.csv', delimiter=',', unpack=True)
+    # x222, y222 = np.genfromtxt('puntaCC.csv', delimiter=',', unpack=True)
+    # x333, y333 = np.genfromtxt('alaDX.csv', delimiter=',', unpack=True)
 
-y4 = y4[np.logical_not(np.isnan(y4))]
-x4 = x4[np.logical_not(np.isnan(x4))]
 
 
-y11 = y11[np.logical_not(np.isnan(y11))]
-x11 = x11[np.logical_not(np.isnan(x11))]
 
-y22 = y22[np.logical_not(np.isnan(y22))]
-x22 = x22[np.logical_not(np.isnan(x22))]
+    y1 = y1[np.logical_not(np.isnan(y1))]
+    x1 = x1[np.logical_not(np.isnan(x1))]
 
-y33 = y33[np.logical_not(np.isnan(y33))]
-x33 = x33[np.logical_not(np.isnan(x33))]
+    y2 = y2[np.logical_not(np.isnan(y2))]
+    x2 = x2[np.logical_not(np.isnan(x2))]
 
-y111 = y111[np.logical_not(np.isnan(y111))]
-x111 = x111[np.logical_not(np.isnan(x111))]
+    y3 = y3[np.logical_not(np.isnan(y3))]
+    x3 = x3[np.logical_not(np.isnan(x3))]
 
-y222 = y222[np.logical_not(np.isnan(y222))]
-x222 = x222[np.logical_not(np.isnan(x222))]
+    y4 = y4[np.logical_not(np.isnan(y4))]
+    x4 = x4[np.logical_not(np.isnan(x4))]
 
-y333 = y333[np.logical_not(np.isnan(y333))]
-x333 = x333[np.logical_not(np.isnan(x333))]
 
-xM1 = sum(x1)/len(x1)
-yM1 = sum(y1)/len(y1)
+    y11 = y11[np.logical_not(np.isnan(y11))]
+    x11 = x11[np.logical_not(np.isnan(x11))]
 
-xM2 = sum(x2)/len(x2)
-yM2 = sum(y2)/len(y2)
+    y22 = y22[np.logical_not(np.isnan(y22))]
+    x22 = x22[np.logical_not(np.isnan(x22))]
 
-xM3 = sum(x3)/len(x3)
-yM3 = sum(y3)/len(y3)
+    y33 = y33[np.logical_not(np.isnan(y33))]
+    x33 = x33[np.logical_not(np.isnan(x33))]
 
-xM4 = sum(x4)/len(x4)
-yM4 = sum(y4)/len(y4)
+    y111 = y111[np.logical_not(np.isnan(y111))]
+    x111 = x111[np.logical_not(np.isnan(x111))]
 
-xM11 = sum(x11)/len(x11)
-yM11 = sum(y11)/len(y11)
+    y222 = y222[np.logical_not(np.isnan(y222))]
+    x222 = x222[np.logical_not(np.isnan(x222))]
 
-xM22 = sum(x22)/len(x22)
-yM22 = sum(y22)/len(y22)
+    y333 = y333[np.logical_not(np.isnan(y333))]
+    x333 = x333[np.logical_not(np.isnan(x333))]
 
-xM33 = sum(x33)/len(x33)
-yM33 = sum(y33)/len(y33)
+    xM1 = sum(x1)/len(x1)
+    yM1 = sum(y1)/len(y1)
 
-xM111 = sum(x111)/len(x111)
-yM111 = sum(y111)/len(y111)
+    xM2 = sum(x2)/len(x2)
+    yM2 = sum(y2)/len(y2)
 
-xM222 = sum(x222)/len(x222)
-yM222 = sum(y222)/len(y222)
+    xM3 = sum(x3)/len(x3)
+    yM3 = sum(y3)/len(y3)
 
-xM333 = sum(x333)/len(x333)
-yM333 = sum(y333)/len(y333)
+    xM4 = sum(x4)/len(x4)
+    yM4 = sum(y4)/len(y4)
 
-#print(yM, xM)
-#k = gaussian_kde(np.vstack([x, y]))
-#xi, yi = np.mgrid[x.min():x.max():x.size**0.5*1j,y.min():y.max():y.size**0.5*1j]
-#zi = k(np.vstack([xi.flatten(), yi.flatten()]))
+    xM11 = sum(x11)/len(x11)
+    yM11 = sum(y11)/len(y11)
 
-#k = gaussian_kde(np.vstack([difesaX, difesaY]))
-#xi, yi = np.mgrid[difesaX.min():difesaX.max():difesaX.size**0.5*1j,difesaY.min():difesaY.max():difesaY.size**0.5*1j]
-#zi = k(np.vstack([xi.flatten(), yi.flatten()]))
+    xM22 = sum(x22)/len(x22)
+    yM22 = sum(y22)/len(y22)
 
-fig = plt.figure(figsize=(12,6.5))
-#ax1 = fig.add_subplot(211)
-ax2 = fig.add_subplot(111)
+    xM33 = sum(x33)/len(x33)
+    yM33 = sum(y33)/len(y33)
 
-#alpha=0.5 will make the plots semitransparent
-#ax1.pcolormesh(yi, xi, zi.reshape(xi.shape), alpha=0.5)
-#ax2.contourf(yi, xi, zi.reshape(xi.shape), alpha=0.3)
+    xM111 = sum(x111)/len(x111)
+    yM111 = sum(y111)/len(y111)
 
-ax2.plot(yM1,xM1, "ro", markersize=10)
-ax2.plot(yM2,xM2, "ro", markersize=10)
-ax2.plot(yM3,xM3, "ro", markersize=10)
-ax2.plot(yM4,xM4, "ro", markersize=10)
-ax2.plot(yM11,xM11, "ro", markersize=10)
-ax2.plot(yM22,xM22, "ro", markersize=10)
-ax2.plot(yM33,xM33, "ro", markersize=10)
-ax2.plot(yM111,xM111, "ro", markersize=10)
-ax2.plot(yM222,xM222, "ro", markersize=10)
-ax2.plot(yM333,xM333, "ro", markersize=10)
+    xM222 = sum(x222)/len(x222)
+    yM222 = sum(y222)/len(y222)
 
-plt.axis('off')
-plt.plot([yM1,yM2,yM3,yM4], [xM1, xM2, xM3, xM4], 'b', linewidth=3)
-plt.plot([yM11,yM22,yM33], [xM11, xM22, xM33], 'b', linewidth=3)
-plt.plot([yM111,yM222,yM333], [xM111, xM222, xM333], 'b', linewidth=3)
-#ax1.set_xlim(0, 740)
-#ax1.set_ylim(515, 0)
-ax2.set_xlim(0, 740)
-ax2.set_ylim(515, 0)
+    xM333 = sum(x333)/len(x333)
+    yM333 = sum(y333)/len(y333)
 
-#overlay your soccer field
-im = plt.imread('statszone_football_pitch.png')
-#ax1.imshow(im, extent=[0, 740, 0, 515], aspect='auto')
-ax2.imshow(im, extent=[0, 740, 0, 515], aspect='auto')
 
-#plt.show()
-#plt.savefig('heatmaps_tackles.png')
+    fig = pylab.figure(figsize=(7,4), frameon=False)
+    #ax1 = fig.add_subplot(211)
+    ax2 = fig.add_subplot(111)
 
-fig.savefig('realmadrid.png')
+    #alpha=0.5 will make the plots semitransparent
+    #ax1.pcolormesh(yi, xi, zi.reshape(xi.shape), alpha=0.5)
+    #ax2.contourf(yi, xi, zi.reshape(xi.shape), alpha=0.3)
+
+    #PUNTI ROSSI CHE INDICANO LA POSIZIONE DEI GIOCATORI
+    ax2.plot(yM1,xM1, "ro", markersize=10)
+    ax2.plot(yM2,xM2, "ro", markersize=10)
+    ax2.plot(yM3,xM3, "ro", markersize=10)
+    ax2.plot(yM4,xM4, "ro", markersize=10)
+    ax2.plot(yM11,xM11, "ro", markersize=10)
+    ax2.plot(yM22,xM22, "ro", markersize=10)
+    ax2.plot(yM33,xM33, "ro", markersize=10)
+    ax2.plot(yM111,xM111, "ro", markersize=10)
+    ax2.plot(yM222,xM222, "ro", markersize=10)
+    ax2.plot(yM333,xM333, "ro", markersize=10)
+
+    pylab.axis('off')
+
+    #LINEE DI COLLEGAMENTO TRA I GIOCATORI DEI REPARTI
+    pylab.plot([yM1,yM2,yM3,yM4], [xM1, xM2, xM3, xM4], 'b', linewidth=3)
+    pylab.plot([yM11,yM22,yM33], [xM11, xM22, xM33], 'b', linewidth=3)
+    pylab.plot([yM111,yM222,yM333], [xM111, xM222, xM333], 'b', linewidth=3)
+    #ax1.set_xlim(0, 740)
+    #ax1.set_ylim(515, 0)
+
+    ax2.set_xlim(0, 740)
+    ax2.set_ylim(515, 0)
+
+    #overlay your soccer field
+    im = pylab.imread('statszone_football_pitch.png')
+    #ax1.imshow(im, extent=[0, 740, 0, 515], aspect='auto')
+    ax2.imshow(im, extent=[0, 740, 0, 515], aspect='auto')
+
+    #plt.show()
+    #plt.savefig('heatmaps_tackles.png')
+    filename = 'disposizione.png'
+    fig.savefig(filename)
+make_fig()
+crop(filename)

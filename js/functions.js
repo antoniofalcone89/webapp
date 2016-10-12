@@ -19,10 +19,10 @@ function setImg2(){
     var fullImg = "disposizione.png";
     //alert(fullImg);
     if(squadra == 1){
-        $('#sortable1').append('<li class="ui-state-default"><img src='+fullImg+' /></li>');
+        $('#sortable1').append('<li class="ui-state-default"><img src="disposizione.png"/></li>');
     }
     else if(squadra == 2){
-        $('#sortable2').append('<li class="ui-state-default"><img src='+fullImg+' /></li>');
+        $('#sortable2').append('<li class="ui-state-default"><img src="disposizione.png"/></li>');
     }
 
 }
@@ -64,37 +64,44 @@ function myAjax (nomefile) {
 function disposizione(filenames, numfiles) {
     var nomifiles = filenames;
     var allcsv = 0;
-    $.each(filenames,function(index) {
-        estensione = filenames[index].split('.').pop().toLowerCase();
-        if(estensione == "csv"){
-            allcsv = 0;
-        }
-        else{
-            allcsv = 1;
-        }
-    });
-    if(allcsv == 1){
-        alert("Tutti i file devono essere di tipo .csv");
+
+    if(numfiles!=10){
+        alert("Devi selezionare 10 file csv")
     }
     else{
-        $.ajax( { type : 'POST',
-            data : {arrayFiles: nomifiles},
-            url  : 'actionDisposizione.php',              // <=== CALL THE PHP FUNCTION HERE.
-            success: function ( data ) {
-                //alert( data );               // <=== VALUE RETURNED FROM FUNCTION.
-            },
-            error: function (xhr, status, error) {
-                // executed if something went wrong during call
-                if (xhr.status > 0) alert('got error: ' + status); // status 0 - when load is interrupted
-            },
-            complete: function (data) {
-                setImg2();
-                $('.waiting').hide();
-            },
-            beforeSend:function(){
-                $('.waiting').show();
+        $.each(filenames,function(index) {
+            estensione = filenames[index].split('.').pop().toLowerCase();
+            if(estensione == "csv"){
+                allcsv = 0;
+            }
+            else{
+                allcsv = 1;
             }
         });
+
+        if(allcsv == 1){
+            alert("Tutti i file devono essere di tipo .csv");
+        }
+        else{
+            $.ajax( { type : 'POST',
+                data : {arrayFiles: nomifiles},
+                url  : 'actionDisposizione.php',              // <=== CALL THE PHP FUNCTION HERE.
+                success: function ( data ) {
+                    //alert( data );               // <=== VALUE RETURNED FROM FUNCTION.
+                },
+                error: function (xhr, status, error) {
+                    // executed if something went wrong during call
+                    if (xhr.status > 0) alert('got error: ' + status); // status 0 - when load is interrupted
+                },
+                complete: function (data) {
+                    setImg2();
+                    $('.waiting').hide();
+                },
+                beforeSend:function(){
+                    $('.waiting').show();
+                }
+            });
+        }
     }
 }
 
