@@ -15,14 +15,13 @@ function setImg(){
 
 }
 
-function setImg2(){
-    var fullImg = "disposizione.png";
-    //alert(fullImg);
+function setImg2(imgname){
+    imgname.slice(0,-1); //elimino l'ultimo carattere perchè c'è un / dopo il nome
     if(squadra == 1){
-        $('#sortable1').append('<li class="ui-state-default"><img src="disposizione.png"/></li>');
+        $('#sortable1').append('<li class="ui-state-default"><img src='+imgname+' /></li>');
     }
     else if(squadra == 2){
-        $('#sortable2').append('<li class="ui-state-default"><img src="disposizione.png"/></li>');
+        $('#sortable2').append('<li class="ui-state-default"><img src='+imgname+' /></li>');
     }
 
 }
@@ -60,41 +59,40 @@ function myAjax (nomefile) {
 }
 
 
-//INFOGRAFICA DISPOSIZIONE IN CAMPO
-function disposizione(filenames, numfiles) {
+//INFOGRAFICA DISTANZE REPARTI ATTACCO DIFESA
+function distanze(filenames, numfiles) {
     var nomifiles = filenames;
     var allcsv = 0;
+    var nomeimg;
 
-    if(numfiles!=10){
-        alert("Devi selezionare 10 file csv")
+    if(numfiles!=3){
+        alert("Devi selezionare 3 file csv");
     }
     else{
         $.each(filenames,function(index) {
             estensione = filenames[index].split('.').pop().toLowerCase();
-            if(estensione == "csv"){
-                allcsv = 0;
-            }
-            else{
+            if(estensione != "csv"){
                 allcsv = 1;
             }
         });
-
         if(allcsv == 1){
             alert("Tutti i file devono essere di tipo .csv");
+            $("#distanze1").replaceWith($("#distanze1").clone());
         }
         else{
             $.ajax( { type : 'POST',
                 data : {arrayFiles: nomifiles},
-                url  : 'actionDisposizione.php',              // <=== CALL THE PHP FUNCTION HERE.
+                url  : 'actionDistanze.php',              // <=== CALL THE PHP FUNCTION HERE.
                 success: function ( data ) {
-                    //alert( data );               // <=== VALUE RETURNED FROM FUNCTION.
+                    nomeimg = data;
+                    //alert( data );               // nome del file creato, restituito dal php
                 },
                 error: function (xhr, status, error) {
                     // executed if something went wrong during call
                     if (xhr.status > 0) alert('got error: ' + status); // status 0 - when load is interrupted
                 },
                 complete: function (data) {
-                    setImg2();
+                    setImg2(nomeimg);
                     $('.waiting').hide();
                 },
                 beforeSend:function(){
@@ -103,6 +101,52 @@ function disposizione(filenames, numfiles) {
             });
         }
     }
+
+}
+
+//INFOGRAFICA DISPOSIZIONE IN CAMPO
+function disposizione(filenames, numfiles) {
+    var nomifiles = filenames;
+    var allcsv = 0;
+    var nomeimg;
+
+    if(numfiles!=10){
+        alert("Devi selezionare 10 file csv");
+    }
+    else{
+        $.each(filenames,function(index) {
+            estensione = filenames[index].split('.').pop().toLowerCase();
+            if(estensione != "csv"){
+                allcsv = 1;
+            }
+        });
+        if(allcsv == 1){
+            alert("Tutti i file devono essere di tipo .csv");
+            $("#disposizione1").replaceWith($("#disposizione1").clone());
+        }
+        else{
+            $.ajax( { type : 'POST',
+                data : {arrayFiles: nomifiles},
+                url  : 'actionDisposizione.php',              // <=== CALL THE PHP FUNCTION HERE.
+                success: function ( data ) {
+                    nomeimg = data;
+                    //alert( data );               // nome del file creato, restituito dal php
+                },
+                error: function (xhr, status, error) {
+                    // executed if something went wrong during call
+                    if (xhr.status > 0) alert('got error: ' + status); // status 0 - when load is interrupted
+                },
+                complete: function (data) {
+                    setImg2(nomeimg);
+                    $('.waiting').hide();
+                },
+                beforeSend:function(){
+                    $('.waiting').show();
+                }
+            });
+        }
+    }
+
 }
 
 function removeCanvas(){

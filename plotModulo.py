@@ -168,7 +168,12 @@ def make_fig():
 
     #plt.show()
     #plt.savefig('heatmaps_tackles.png')
-    filename = 'disposizione.png'
+    if(os.path.isfile('disposizione.png')):
+        filename = 'disposizione1.png'
+    else:
+        filename = 'disposizione.png'
+
     fig.savefig(filename)
+    print(filename)
 make_fig()
 crop(filename)

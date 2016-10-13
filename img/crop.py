@@ -4,8 +4,8 @@ from PIL import Image
 def crop(arg1):
     # size is width/height
     img = Image.open(arg1)
-    left = 88
-    top = 41
+    left = 0
+    top = 0
     width = 545
     height = 321
     box = (left, top, left+width, top+height)

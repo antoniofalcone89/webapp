@@ -86,15 +86,18 @@
             myAjax(testo);
         });
 
+
         var names = [];
         var numfiles;
         //Eseguo lo script python sui file per la disposizione
         $(document).on('click', '.gruppoinputDisposizione1 > #disposizioneButton1', function() {
             //alert(testo);
             disposizione(names, numfiles);
+            names = [];
+            numfiles = 0;
         });
 
-        //Eseguo lo script python sui file csv dei giocatori
+        //Scrivo il numero dei file selezionati
         $(document).on('change', '#disposizione1', function() {
 
             numfiles = $(this).get(0).files.length;
@@ -125,6 +128,53 @@
 
         });
 
+
+
+
+        var names2 = [];
+        var numfiles2;
+        //Eseguo lo script python sui file per la distanza tra reparti
+        $(document).on('click', '.gruppoinputDistanze1 > #distanzeButton1', function() {
+            //alert(testo);
+            distanze(names2, numfiles2);
+            names2 = [];
+            numfiles2 = 0;
+        });
+
+        //Eseguo lo script python sui file csv dei giocatori DISTANZA REPARTI
+        $(document).on('change', '#distanze1', function() {
+
+            numfiles2 = $(this).get(0).files.length;
+            for (var i = 0; i < numfiles2; ++i) {
+                names2.push($(this).get(0).files[i].name);
+                //alert(names[i]);
+            }
+            //Scrivo il nome del file selezionato
+            if(squadra == 1){
+                //Se ho già scelto una volta i file allora sostituisco
+                if($(this).closest('.gruppoinputDistanze1').children('p').length){
+                    $(this).closest('.gruppoinputDistanze1').children('p.numfiles').remove(); //Sostituisco il numero
+                }
+                //Se scelgo il file per la prima volta allora appendo il nome del file
+                $(this).closest('.gruppoinputDistanze1').append('<p class="numfiles">Hai selezionato '+numfiles2+' files</p>');
+                $(this).parent().next().prop('disabled', false);
+            }
+            else if(squadra == 2){
+                //Se ho già scelto una volta il file devo sostituirlo
+                if($(this).closest('.gruppoinputDistanze2').children('p').length){
+                    $(this).closest('.gruppoinputDistanze2').children('p.numfiles').remove(); //Sostituisco il nome del file
+                }
+                //Se scelgo il file per la prima volta allora appendo il nome del file
+                $(this).closest('.gruppoinputDistanze1').append('<p class="numfiles">Hai selezionato '+numfiles2+' files</p>');
+                $(this).parent().next().prop('disabled', false);
+            }
+
+
+        });
+
+
+
+
         //Scroll sugli elementi nella tabella di destra
         $( function() {
 
@@ -139,26 +189,6 @@
                 $( "#sortable2" ).disableSelection();
 
         } );
-
-
-//        MODAL PER SALVARE L INFOGRAFICA (NON PIU UTILIZZATO)
-        $(document).ready(function(){
-
-
-            var element = $("#contenitore"); // global variable
-            var getCanvas; // global variable
-
-            $("#save").on('click', function () {
-                html2canvas(element, {
-                    onrendered: function (canvas) {
-                        $(".modal-body").append("<span>Immagine in formato .png contenente l'infografica.</span>");
-                        $(".modal-body").append(canvas);
-                        getCanvas = canvas;
-                    }
-                });
-            });
-
-        });
 
 
     </script>
@@ -214,7 +244,8 @@
     <p class="lead">Quando si selezionano i file csv per mostrare la disposizione in campo della squadra, questi devono indicare i calciatori nella disposizione corrispondente al modulo, da sinistra verso destra.</p>
     <p>Esempio: il file 1.csv deve indicare il terzino sinistro, 2.csv il difensore centrale di sinistra, 3.csv il centrale destro e così via.</p>
 
-
+    <p class="lead">Per ottenere il grafico della distanza media tra difesa e attacco sono necessari 3 file csv. E' importante seguire l'esempio seguente.</p>
+    <p>Esempio: il file 1.csv deve indicare il difensore centrale sinistro (o destro), 2.csv l'altro difensore centrale, 3.csv la punta centrale.</p>
 
     <div class="row">
 
@@ -253,6 +284,14 @@
                         Browse <input type="file" id="disposizione1" style="display: none;" class="inputDisposizione1" multiple="multiple"/>
                     </label>
                     <button type="button" class="btn btn-outline-danger" id="disposizioneButton1" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
+                </div>
+
+                <div class="gruppoinputDistanze1">
+                    <p class="lead" style="margin-bottom: 0;">Distanze difesa/attacco</p>
+                    <label class="btn btn-default btn-info">
+                        Browse <input type="file" id="distanze1" style="display: none;" class="inputDistanze1" multiple="multiple"/>
+                    </label>
+                    <button type="button" class="btn btn-outline-danger" id="distanzeButton1" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
                 </div>
 
                 <div class="gruppoinput1" id="firstimg1">
@@ -313,29 +352,6 @@
         </div>
     </div>
     </div>
-
-
-
-
-    <!-- Modal -->
-    <!--<div class="modal fade bd-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title" id="myModalLabel">MandrakeGraphics</h4>
-                </div>
-                <div class="modal-body">
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="removeCanvas()">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>-->
 
 
 </div>
