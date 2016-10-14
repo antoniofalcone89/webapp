@@ -103,7 +103,7 @@
             numfiles = $(this).get(0).files.length;
             for (var i = 0; i < numfiles; ++i) {
                 names.push($(this).get(0).files[i].name);
-                //alert(names[i]);
+                alert(names[i]);
             }
             //Scrivo il nome del file selezionato
             if(squadra == 1){
@@ -147,9 +147,9 @@
             numfiles2 = $(this).get(0).files.length;
             for (var i = 0; i < numfiles2; ++i) {
                 names2.push($(this).get(0).files[i].name);
-                //alert(names[i]);
+                alert(names2[i]);
             }
-            //Scrivo il nome del file selezionato
+            //Scrivo il numero dei file selezionati
             if(squadra == 1){
                 //Se ho già scelto una volta i file allora sostituisco
                 if($(this).closest('.gruppoinputDistanze1').children('p').length){

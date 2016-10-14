@@ -2,6 +2,20 @@
  * Created by Antonio on 21/09/16.
  */
 
+function setSortable(){
+
+    $( "#sortable1" ).sortable({
+        placeholder: "ui-state-highlight"
+    });
+    $( "#sortable1" ).disableSelection();
+
+    $( "#sortable2" ).sortable({
+        placeholder: "ui-state-highlight"
+    });
+    $( "#sortable2" ).disableSelection();
+
+}
+
 function setImg(){
     var ext = ".png";
     var fullImg = img.concat(ext);
@@ -12,7 +26,6 @@ function setImg(){
     else if(squadra == 2){
         $('#sortable2').append('<li class="ui-state-default"><img src='+fullImg+' /></li>');
     }
-
 }
 
 function setImg2(imgname){
@@ -60,22 +73,22 @@ function myAjax (nomefile) {
 
 
 //INFOGRAFICA DISTANZE REPARTI ATTACCO DIFESA
-function distanze(filenames, numfiles) {
-    var nomifiles = filenames;
-    var allcsv = 0;
+function distanze(filenames1, numfiles1) {
+    var nomifiles = filenames1;
+    var allcsv1 = 0;
     var nomeimg;
 
-    if(numfiles!=3){
+    if(numfiles1!=3){
         alert("Devi selezionare 3 file csv");
     }
     else{
-        $.each(filenames,function(index) {
-            estensione = filenames[index].split('.').pop().toLowerCase();
+        $.each(filenames1,function(index) {
+            estensione = filenames1[index].split('.').pop().toLowerCase();
             if(estensione != "csv"){
-                allcsv = 1;
+                allcsv1 = 1;
             }
         });
-        if(allcsv == 1){
+        if(allcsv1 == 1){
             alert("Tutti i file devono essere di tipo .csv");
             $("#distanze1").replaceWith($("#distanze1").clone());
         }
@@ -94,6 +107,9 @@ function distanze(filenames, numfiles) {
                 complete: function (data) {
                     setImg2(nomeimg);
                     $('.waiting').hide();
+                    $("#distanze1").replaceWith($("#distanze1").clone());
+                    $("#distanze1").closest('.gruppoinputDistanze1').children('p.numfiles').remove();
+                    $("#distanze1").closest('.gruppoinputDistanze2').children('p.numfiles').remove();
                 },
                 beforeSend:function(){
                     $('.waiting').show();
@@ -139,6 +155,9 @@ function disposizione(filenames, numfiles) {
                 complete: function (data) {
                     setImg2(nomeimg);
                     $('.waiting').hide();
+                    $("#disposizione1").replaceWith($("#disposizione1").clone());
+                    $("#disposizione1").closest('.gruppoinputDisposizione1').children('p.numfiles').remove();
+                    $("#disposizione1").closest('.gruppoinputDisposizione2').children('p.numfiles').remove();
                 },
                 beforeSend:function(){
                     $('.waiting').show();
@@ -155,17 +174,19 @@ function removeCanvas(){
 
 function removeContent() {
     $('#contenuto').empty();
-    $('#contenuto').append('<ul id="sortable"> </ul>');
+    $('#contenuto').append('<ul id="sortable" class="ui-sortable"> </ul>');
 }
 
 function removeSquadra1() {
     $('#contenuto1').empty();
-    $('#contenuto1').append('<ul id="sortable1"> </ul>');
+    $('#contenuto1').append('<ul id="sortable1" class="ui-sortable"> </ul>');
+    setSortable();
 }
 
 function removeSquadra2() {
     $('#contenuto2').empty();
-    $('#contenuto2').append('<ul id="sortable2"> </ul>');
+    $('#contenuto2').append('<ul id="sortable2" class="ui-sortable"> </ul>');
+    setSortable();
 }
 
 var squadra = 1;
@@ -224,7 +245,6 @@ function setTitle(){
 
 function setText(){
     var testo = document.getElementById('text').value;
-
 
     if(squadra == 1){
         $('#sortable1').prepend('<li class="ui-state-default"><h4>'+testo+'</h4></li>');
