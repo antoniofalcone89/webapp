@@ -109,7 +109,7 @@ function distanze(filenames1, numfiles1) {
                     $('.waiting').hide();
                     $("#distanze1").replaceWith($("#distanze1").clone());
                     $("#distanze1").closest('.gruppoinputDistanze1').children('p.numfiles').remove();
-                    $("#distanze1").closest('.gruppoinputDistanze2').children('p.numfiles').remove();
+                    $("#distanze2").closest('.gruppoinputDistanze2').children('p.numfiles').remove();
                 },
                 beforeSend:function(){
                     $('.waiting').show();
@@ -119,6 +119,17 @@ function distanze(filenames1, numfiles1) {
     }
 
 }
+
+function lightSquadra(squadra){
+    if(squadra == 1){
+        $('#contenuto1').effect("highlight", {}, 1000);
+    }
+    else if(squadra == 2){
+        $('#contenuto2').effect("highlight", {}, 1000);
+    }
+}
+
+
 
 //INFOGRAFICA DISPOSIZIONE IN CAMPO
 function disposizione(filenames, numfiles) {
@@ -157,7 +168,7 @@ function disposizione(filenames, numfiles) {
                     $('.waiting').hide();
                     $("#disposizione1").replaceWith($("#disposizione1").clone());
                     $("#disposizione1").closest('.gruppoinputDisposizione1').children('p.numfiles').remove();
-                    $("#disposizione1").closest('.gruppoinputDisposizione2').children('p.numfiles').remove();
+                    $("#disposizione2").closest('.gruppoinputDisposizione2').children('p.numfiles').remove();
                 },
                 beforeSend:function(){
                     $('.waiting').show();
@@ -194,12 +205,16 @@ var squadra = 1;
 function mostraBottoniSquadra2() {
     $('#bottoni_squadra1').hide();
     $('#bottoni_squadra2').show();
+    $("#disposizione2").replaceWith($("#disposizione2").clone());
+    lightSquadra(2);
     squadra = 2;
 }
 
 function mostraBottoniSquadra1() {
     $('#bottoni_squadra2').hide();
     $('#bottoni_squadra1').show();
+    $("#disposizione1").replaceWith($("#disposizione1").clone());
+    lightSquadra(1);
     squadra = 1;
 }
 

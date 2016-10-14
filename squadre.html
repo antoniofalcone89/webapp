@@ -46,7 +46,6 @@
         //Scrivo il nome del file selezionato
         $(document).on('change', '.inputfile', function() {
             var dio = ($(this).val().split('\\').pop());    //Nome del file
-
             if(squadra == 1){
                 //Se ho già scelto una volta il file devo sostituirlo
                 if($(this).closest('.gruppoinput1').children('p').length){
@@ -65,9 +64,7 @@
                 $(this).closest('.gruppoinput2').append('<p>'+dio+'</p>');
                 $(this).parent().next().prop('disabled', false);
             }
-
         });
-
         //Rimuovo gli elementi su cui clicco nella colonna di destra
         $(document).on('click', '#remove_elem2', function() {
             $('#contenuto2').effect("highlight", {}, 1000);
@@ -78,7 +75,6 @@
                 //$('#sortable').css('cursor', 'default');
             });
         });
-
         //Rimuovo gli elementi su cui clicco nella colonna di destra
         $(document).on('click', '#remove_elem1', function() {
             $('#contenuto1').effect("highlight", {}, 1000);
@@ -89,11 +85,16 @@
                 //$('#sortable').css('cursor', 'default');
             });
         });
-
         //Eseguo lo script python sul file selezionato
-        $(document).on('click', '.btn-outline-danger', function() {
+        $(document).on('click', '.gruppoinput1 > .btn-outline-danger', function() {
             var par = $(this).parent();
+            var testo = par.children().last().text();
+            //alert(testo);
+            myAjax(testo);
+        });
 
+        $(document).on('click', '.gruppoinput2 > .btn-outline-danger', function() {
+            var par = $(this).parent();
             var testo = par.children().last().text();
             //alert(testo);
             myAjax(testo);
@@ -101,25 +102,20 @@
 
         //Scroll sugli elementi nella tabella di destra
         $( function() {
-                $( "#sortable1" ).sortable({
-                    placeholder: "ui-state-highlight"
-                });
-                $( "#sortable1" ).disableSelection();
-
-                $( "#sortable2" ).sortable({
-                    placeholder: "ui-state-highlight"
-                });
-                $( "#sortable2" ).disableSelection();
-
+            $( "#sortable1" ).sortable({
+                placeholder: "ui-state-highlight"
+            });
+            $( "#sortable1" ).disableSelection();
+            $( "#sortable2" ).sortable({
+                placeholder: "ui-state-highlight"
+            });
+            $( "#sortable2" ).disableSelection();
         } );
 
         //SALVA IN IMMAGINE IL DIV CONTENENTE LE INFOGRAFICHE
         $(document).ready(function(){
-
-
             var element = $("#contenitore"); // global variable
             var getCanvas; // global variable
-
             $("#save1").on('click', function () {
                 html2canvas(element, {
                     onrendered: function (canvas) {
@@ -129,15 +125,10 @@
                     }
                 });
             });
-
         });
-
         $(document).ready(function(){
-
-
             var element = $("#contenitore"); // global variable
             var getCanvas; // global variable
-
             $("#save2").on('click', function () {
                 html2canvas(element, {
                     onrendered: function (canvas) {
@@ -147,11 +138,110 @@
                     }
                 });
             });
+        });
+
+
+        var names = [];
+        var numfiles;
+        //Eseguo lo script python sui file per la disposizione
+        $(document).on('click', '.gruppoinputDisposizione1 > #disposizioneButton1', function() {
+            //alert(testo);
+            disposizione(names, numfiles);
+            names = [];
+            numfiles = 0;
+        });
+
+        //Eseguo lo script python sui file per la disposizione SQUADRA 2
+        $(document).on('click', '.gruppoinputDisposizione2 > #disposizioneButton2', function() {
+            //alert(testo);
+            disposizione(names, numfiles);
+            names = [];
+            numfiles = 0;
+        });
+
+        //Scrivo il numero dei file selezionati
+        $(document).on('change', '.inputDisposizione', function() {
+            numfiles = $(this).get(0).files.length;
+            for (var i = 0; i < numfiles; ++i) {
+                names.push($(this).get(0).files[i].name);
+                //alert(names[i]);
+            }
+            //Scrivo il nome del file selezionato
+            if(squadra == 1){
+                //Se ho già scelto una volta i file allora sostituisco
+                if($(this).closest('.gruppoinputDisposizione1').children('p').length){
+                    $(this).closest('.gruppoinputDisposizione1').children('p.numfiles').remove(); //Sostituisco il numero
+                }
+                //Se scelgo il file per la prima volta allora appendo il nome del file
+                $(this).closest('.gruppoinputDisposizione1').append('<p class="numfiles">Hai selezionato '+numfiles+' files</p>');
+                $(this).parent().next().prop('disabled', false);
+            }
+            else if(squadra == 2){
+                //Se ho già scelto una volta il file devo sostituirlo
+                if($(this).closest('.gruppoinputDisposizione2').children('p').length){
+                    $(this).closest('.gruppoinputDisposizione2').children('p.numfiles').remove(); //Sostituisco il nome del file
+                }
+                //Se scelgo il file per la prima volta allora appendo il nome del file
+                $(this).closest('.gruppoinputDisposizione2').append('<p class="numfiles">Hai selezionato '+numfiles+' files</p>');
+                $(this).parent().next().prop('disabled', false);
+            }
+
 
         });
 
 
+
+
+        var names2 = [];
+        var numfiles2;
+        //Eseguo lo script python sui file per la distanza tra reparti
+        $(document).on('click', '.gruppoinputDistanze1 > #distanzeButton1', function() {
+            //alert(testo);
+            distanze(names2, numfiles2);
+            names2 = [];
+            numfiles2 = 0;
+        });
+
+        //Eseguo lo script python sui file per la distanza tra reparti
+        $(document).on('click', '.gruppoinputDistanze2 > #distanzeButton2', function() {
+            //alert(testo);
+            distanze(names2, numfiles2);
+            names2 = [];
+            numfiles2 = 0;
+        });
+
+        //Eseguo lo script python sui file csv dei giocatori DISTANZA REPARTI
+        $(document).on('change', '.inputDistanze', function() {
+
+            numfiles2 = $(this).get(0).files.length;
+            for (var i = 0; i < numfiles2; ++i) {
+                names2.push($(this).get(0).files[i].name);
+                //alert(names2[i]);
+            }
+            //Scrivo il numero dei file selezionati
+            if(squadra == 1){
+                //Se ho già scelto una volta i file allora sostituisco
+                if($(this).closest('.gruppoinputDistanze1').children('p').length){
+                    $(this).closest('.gruppoinputDistanze1').children('p.numfiles').remove(); //Sostituisco il numero
+                }
+                //Se scelgo il file per la prima volta allora appendo il nome del file
+                $(this).closest('.gruppoinputDistanze1').append('<p class="numfiles">Hai selezionato '+numfiles2+' files</p>');
+                $(this).parent().next().prop('disabled', false);
+            }
+            else if(squadra == 2){
+                //Se ho già scelto una volta il file devo sostituirlo
+                if($(this).closest('.gruppoinputDistanze2').children('p').length){
+                    $(this).closest('.gruppoinputDistanze2').children('p.numfiles').remove(); //Sostituisco il nome del file
+                }
+                //Se scelgo il file per la prima volta allora appendo il nome del file
+                $(this).closest('.gruppoinputDistanze2').append('<p class="numfiles">Hai selezionato '+numfiles2+' files</p>');
+                $(this).parent().next().prop('disabled', false);
+            }
+
+
+        });
     </script>
+
 
 
 </head>
@@ -211,7 +301,7 @@
 
             <div class="col-md-4">
                 <div class="dropdown">
-                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Aggiungi
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -236,7 +326,24 @@
 
 
             <div class="col-md-4">
+                <div class="gruppoinputDisposizione1">
+                    <p class="lead" style="margin-bottom: 0;">Disposizione</p>
+                    <label class="btn btn-default btn-info">
+                        Browse <input type="file" id="disposizione1" style="display: none;" class="inputDisposizione" multiple="multiple"/>
+                    </label>
+                    <button type="button" class="btn btn-outline-danger" id="disposizioneButton1" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
+                </div>
+
+                <div class="gruppoinputDistanze1">
+                    <p class="lead" style="margin-bottom: 0;">Distanze difesa/attacco</p>
+                    <label class="btn btn-default btn-info">
+                        Browse <input type="file" id="distanze1" style="display: none;" class="inputDistanze" multiple="multiple"/>
+                    </label>
+                    <button type="button" class="btn btn-outline-danger" id="distanzeButton1" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
+                </div>
+
                 <div class="gruppoinput1" id="firstimg1">
+                    <p class="lead" style="margin-bottom: 0;">Heatmap</p>
                     <label class="btn btn-default btn-info">
                         Browse <input type="file" style="display: none;" class="inputfile"/>
                     </label>
@@ -262,7 +369,7 @@
 
         <div class="col-md-4">
             <div class="dropdown">
-                <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Aggiungi
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -287,7 +394,24 @@
 
 
         <div class="col-md-4">
+            <div class="gruppoinputDisposizione2">
+                <p class="lead" style="margin-bottom: 0;">Disposizione</p>
+                <label class="btn btn-default btn-info">
+                    Browse <input type="file" id="disposizione2" style="display: none;" class="inputDisposizione" multiple="multiple"/>
+                </label>
+                <button type="button" class="btn btn-outline-danger" id="disposizioneButton2" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
+            </div>
+
+            <div class="gruppoinputDistanze2">
+                <p class="lead" style="margin-bottom: 0;">Distanze difesa/attacco</p>
+                <label class="btn btn-default btn-info">
+                    Browse <input type="file" id="distanze2" style="display: none;" class="inputDistanze" multiple="multiple"/>
+                </label>
+                <button type="button" class="btn btn-outline-danger" id="distanzeButton2" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
+            </div>
+
             <div class="gruppoinput2" id="firstimg2">
+                <p class="lead" style="margin-bottom: 0;">Heatmap</p>
                 <label class="btn btn-default btn-info">
                     Browse <input type="file" style="display: none;" class="inputfile"/>
                 </label>
