@@ -131,8 +131,8 @@ function lightSquadra(squadra){
 
 
 
-//INFOGRAFICA DISPOSIZIONE IN CAMPO
-function disposizione(filenames, numfiles) {
+//INFOGRAFICA DISPOSIZIONE IN CAMPO 433
+function disposizione433(filenames, numfiles) {
     var nomifiles = filenames;
     var allcsv = 0;
     var nomeimg;
@@ -154,7 +154,55 @@ function disposizione(filenames, numfiles) {
         else{
             $.ajax( { type : 'POST',
                 data : {arrayFiles: nomifiles},
-                url  : 'actionDisposizione.php',              // <=== CALL THE PHP FUNCTION HERE.
+                url  : 'actionDisposizione433.php',              // <=== CALL THE PHP FUNCTION HERE.
+                success: function ( data ) {
+                    nomeimg = data;
+                    //alert( data );               // nome del file creato, restituito dal php
+                },
+                error: function (xhr, status, error) {
+                    // executed if something went wrong during call
+                    if (xhr.status > 0) alert('got error: ' + status); // status 0 - when load is interrupted
+                },
+                complete: function (data) {
+                    setImg2(nomeimg);
+                    $('.waiting').hide();
+                    $("#disposizione1").replaceWith($("#disposizione1").clone());
+                    $("#disposizione1").closest('.gruppoinputDisposizione1').children('p.numfiles').remove();
+                    $("#disposizione2").closest('.gruppoinputDisposizione2').children('p.numfiles').remove();
+                },
+                beforeSend:function(){
+                    $('.waiting').show();
+                }
+            });
+        }
+    }
+
+}
+
+//INFOGRAFICA DISPOSIZIONE IN CAMPO 433
+function disposizione352(filenames, numfiles) {
+    var nomifiles = filenames;
+    var allcsv = 0;
+    var nomeimg;
+
+    if(numfiles!=10){
+        alert("Devi selezionare 10 file csv");
+    }
+    else{
+        $.each(filenames,function(index) {
+            estensione = filenames[index].split('.').pop().toLowerCase();
+            if(estensione != "csv"){
+                allcsv = 1;
+            }
+        });
+        if(allcsv == 1){
+            alert("Tutti i file devono essere di tipo .csv");
+            $("#disposizione1").replaceWith($("#disposizione1").clone());
+        }
+        else{
+            $.ajax( { type : 'POST',
+                data : {arrayFiles: nomifiles},
+                url  : 'actionDisposizione352.php',              // <=== CALL THE PHP FUNCTION HERE.
                 success: function ( data ) {
                     nomeimg = data;
                     //alert( data );               // nome del file creato, restituito dal php

@@ -65,6 +65,7 @@
                 $(this).parent().next().prop('disabled', false);
             }
         });
+
         //Rimuovo gli elementi su cui clicco nella colonna di destra
         $(document).on('click', '#remove_elem2', function() {
             $('#contenuto2').effect("highlight", {}, 1000);
@@ -75,6 +76,7 @@
                 //$('#sortable').css('cursor', 'default');
             });
         });
+
         //Rimuovo gli elementi su cui clicco nella colonna di destra
         $(document).on('click', '#remove_elem1', function() {
             $('#contenuto1').effect("highlight", {}, 1000);
@@ -85,6 +87,7 @@
                 //$('#sortable').css('cursor', 'default');
             });
         });
+
         //Eseguo lo script python sul file selezionato
         $(document).on('click', '.gruppoinput1 > .btn-outline-danger', function() {
             var par = $(this).parent();
