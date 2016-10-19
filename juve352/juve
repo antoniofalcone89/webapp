@@ -1,0 +1,37 @@
+"http://www.fourfourtwo.com/statszone/21-2013/matches/717679/player-stats/17172/OVERALL_02", #LIVORNO-JUVE 0-2
+"http://www.fourfourtwo.com/statszone/21-2013/matches/717675/player-stats/17172/OVERALL_02", #JUVE-NAPOLI 3-0
+"http://www.fourfourtwo.com/statszone/21-2013/matches/717663/player-stats/17172/OVERALL_02", #PARMA-JUVE 0-1
+"http://www.fourfourtwo.com/statszone/21-2013/matches/717652/player-stats/17172/OVERALL_02", #JUVE-CATANIA 4-0
+"http://www.fourfourtwo.com/statszone/21-2013/matches/717642/player-stats/17172/OVERALL_02", #JUV-GENOA 2-0 BARZAGLI
+"http://www.fourfourtwo.com/statszone/21-2013/matches/717630/player-stats/17172/OVERALL_02", #FIORE-JUVE 4-2
+"http://www.fourfourtwo.com/statszone/21-2013/matches/717622/player-stats/17172/OVERALL_02", #JUVE-MILAN 3-2
+"http://www.fourfourtwo.com/statszone/21-2013/matches/717616/player-stats/17172/OVERALL_02", #TORINO-JUVE 0-1
+"http://www.fourfourtwo.com/statszone/21-2013/matches/717599/player-stats/17172/OVERALL_02", #CHIEVO-JUVE 1-2
+"http://www.fourfourtwo.com/statszone/21-2013/matches/717594/player-stats/17172/OVERALL_02", #JUVE-VERONA 2-1
+"http://www.fourfourtwo.com/statszone/21-2013/matches/717579/player-stats/17172/OVERALL_02", #INTER-JUVE 1-1
+"http://www.fourfourtwo.com/statszone/21-2013/matches/717573/player-stats/17172/OVERALL_02", #JUVE-LAZIO 4-1
+"http://www.fourfourtwo.com/statszone/21-2013/matches/717565/player-stats/17172/OVERALL_02" #SAMP-JUVE 0-1
+
+response.xpath('//*[@id="pitch"]/*[contains(@class,"success") or contains(@class,"fail")]').extract_first()
+
+
+17172 BARZAGLI
+28277 BONUCCI
+18102 CHIELLINI
+74208 POGBA
+7313 PIRLO
+42565 VIDAL
+27335 LICHTSTEINER
+49485 ASAMOAH
+7347 VUCINIC
+20312 TEVEZ
+48852 ISLA
+40669 OGBONNA
+19760 LLORENZO
+12473 QUAGLIARELLA
+20113 MARCHISIO
+38476 PELUSO
+40283 GIOVINCO
+14723 PADOIN
+43693 CACERES
+19581 DE CEGLIE

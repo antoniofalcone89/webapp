@@ -9,7 +9,7 @@ import os,sys
 import pylab
 import PIL
 from PIL import Image
-
+import uuid
 
 def resize(arg1):
     baseheight = 321
@@ -20,11 +20,14 @@ def resize(arg1):
     img.save(arg1)
 
 def make_fig():
-
+	global folder
+	folder = "433files/"
+	global imgFolder
+	imgFolder = "imgGen/"
 	global filename1,filename2,filename3
-	filename1 = sys.argv[1]
-	filename2 = sys.argv[2]
-	filename3 = sys.argv[3]
+	filename1 = folder + sys.argv[1]
+	filename2 = folder + sys.argv[2]
+	filename3 = folder + sys.argv[3]
 	x2, y2 = np.genfromtxt(filename1, delimiter=',', unpack=True)
 	x3, y3 = np.genfromtxt(filename2, delimiter=',', unpack=True)
 
@@ -87,13 +90,16 @@ def make_fig():
 	pylab.tight_layout()
 	#pylab.show()
 	global name
+	global unique_filename
+	unique_filename = str(uuid.uuid4())
 
-	if(os.path.isfile('barplot_distanzeDIFATT.png')):
-		fig.savefig('barplot_distanzeDIFATT1.png')
-		name = 'barplot_distanzeDIFATT1.png'
-	else:
-		fig.savefig('barplot_distanzeDIFATT.png')
-		name = 'barplot_distanzeDIFATT.png'
-	print(name)
+	#if(os.path.isfile('barplot_distanzeDIFATT.png')):
+		#fig.savefig('barplot_distanzeDIFATT1.png')
+		#name = 'barplot_distanzeDIFATT1.png'
+	#else:
+		#fig.savefig('barplot_distanzeDIFATT.png')
+		#name = 'barplot_distanzeDIFATT.png'
+	fig.savefig(imgFolder+unique_filename+".png")
+	print(unique_filename+".png")
 make_fig()
-resize(name)
+resize(imgFolder+unique_filename+".png")

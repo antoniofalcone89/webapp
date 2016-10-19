@@ -30,6 +30,7 @@ function setImg(){
 
 function setImg2(imgname){
     imgname.slice(0,-1); //elimino l'ultimo carattere perchè c'è un / dopo il nome
+    imgname = "imgGen/" + imgname;
     if(squadra == 1){
         $('#sortable1').append('<li class="ui-state-default"><img src='+imgname+' /></li>');
     }
