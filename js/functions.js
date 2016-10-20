@@ -16,15 +16,15 @@ function setSortable(){
 
 }
 
-function setImg(){
+function setImg(imgname){
     var ext = ".png";
     var fullImg = img.concat(ext);
     //alert(fullImg);
     if(squadra == 1){
-        $('#sortable1').append('<li class="ui-state-default"><img src='+fullImg+' /></li>');
+        $('#sortable1').append('<li class="ui-state-default"><img src='+imgname+' /></li>');
     }
     else if(squadra == 2){
-        $('#sortable2').append('<li class="ui-state-default"><img src='+fullImg+' /></li>');
+        $('#sortable2').append('<li class="ui-state-default"><img src='+imgname+' /></li>');
     }
 }
 
@@ -44,6 +44,7 @@ var img;
 
 function myAjax (nomefile) {
     var testo = nomefile;
+    var nomeimg;
     estensione = nomefile.split('.').pop().toLowerCase();
     if(estensione == "csv"){
         $.ajax( { type : 'POST',
@@ -51,6 +52,7 @@ function myAjax (nomefile) {
             url  : 'action.php',              // <=== CALL THE PHP FUNCTION HERE.
             success: function ( data ) {
                 img = testo.slice(0, -4);
+                nomeimg = data;
                 //alert( data );               // <=== VALUE RETURNED FROM FUNCTION.
             },
             error: function (xhr, status, error) {
@@ -58,7 +60,7 @@ function myAjax (nomefile) {
                 if (xhr.status > 0) alert('got error: ' + status); // status 0 - when load is interrupted
             },
             complete: function (data) {
-                setImg();
+                setImg(nomeimg);
                 $('.waiting').hide();
             },
             beforeSend:function(){

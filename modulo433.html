@@ -47,20 +47,20 @@
             var dio = ($(this).val().split('\\').pop());    //Nome del file
             if(squadra == 1){
                 //Se ho già scelto una volta il file devo sostituirlo
-                if($(this).closest('.gruppoinput1').children('p').length){
-                    $(this).closest('.gruppoinput1').children('p').remove(); //Sostituisco il nome del file
+                if($(this).closest('.gruppoinput1').children('p.nomefile').length){
+                    $(this).closest('.gruppoinput1').children('p.nomefile').remove(); //Sostituisco il nome del file
                 }
                 //Se scelgo il file per la prima volta allora appendo il nome del file
-                $(this).closest('.gruppoinput1').append('<p>'+dio+'</p>');
+                $(this).closest('.gruppoinput1').append('<p class="nomefile">'+dio+'</p>');
                 $(this).parent().next().prop('disabled', false);
             }
             else if(squadra == 2){
                 //Se ho già scelto una volta il file devo sostituirlo
-                if($(this).closest('.gruppoinput2').children('p').length){
-                    $(this).closest('.gruppoinput2').children('p').remove(); //Sostituisco il nome del file
+                if($(this).closest('.gruppoinput2').children('p.nomefile').length){
+                    $(this).closest('.gruppoinput2').children('p.nomefile').remove(); //Sostituisco il nome del file
                 }
                 //Se scelgo il file per la prima volta allora appendo il nome del file
-                $(this).closest('.gruppoinput2').append('<p>'+dio+'</p>');
+                $(this).closest('.gruppoinput2').append('<p class="nomefile">'+dio+'</p>');
                 $(this).parent().next().prop('disabled', false);
             }
 

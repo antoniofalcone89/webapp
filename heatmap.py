@@ -9,6 +9,7 @@ from scipy.stats.kde import gaussian_kde
 import os,sys
 import pylab
 from PIL import Image
+import uuid
 
 def crop(arg1):
     # size is width/height
@@ -22,7 +23,7 @@ def crop(arg1):
 
     #area.save('cropped_0_388_image1', 'jpeg')
     output_img = img.crop(box)
-    output_img.save(filename+".png", 'png')
+    output_img.save(arg1, 'png')
 
 
 def make_fig():
@@ -66,9 +67,11 @@ def make_fig():
     #plt.show()
     #plt.savefig('heatmaps_tackles.png')
     #fig.savefig('test.png', bbox_inches='tight')
-    name = filename+".png"
-    fig.savefig( name, format='png' )
+    global unique_filename
+    unique_filename = str(uuid.uuid4())
+    print("imgGen/"+unique_filename+".png")
+    fig.savefig( "imgGen/"+unique_filename+".png", format='png' )
     # import shutil
     # shutil.copyfileobj(open("tempfile.png",'rb'), sys.stdout)
 make_fig()
-crop(name)
+crop("imgGen/"+unique_filename+".png")
