@@ -43,6 +43,16 @@
     <script>
         $(document).ready(function(){
             $('.waiting').hide();
+            $.ajax( {
+                url  : 'removeAll.php',              // <=== CALL THE PHP FUNCTION HERE.
+                success: function ( data ) {
+                    //alert( data );               // <=== VALUE RETURNED FROM FUNCTION.
+                },
+                error: function (xhr, status, error) {
+                    // executed if something went wrong during call
+                    if (xhr.status > 0) alert('got error: ' + status); // status 0 - when load is interrupted
+                }
+            });
         });
 
         //Scrivo il nome del file selezionato
