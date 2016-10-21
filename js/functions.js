@@ -135,7 +135,7 @@ function lightSquadra(squadra){
 
 
 //INFOGRAFICA DISPOSIZIONE IN CAMPO 433
-function disposizione433(filenames, numfiles) {
+function disposizione433(filenames, numfiles, effettiva) {
     var nomifiles = filenames;
     var allcsv = 0;
     var nomeimg;
@@ -156,7 +156,7 @@ function disposizione433(filenames, numfiles) {
         }
         else{
             $.ajax( { type : 'POST',
-                data : {arrayFiles: nomifiles},
+                data : {arrayFiles: nomifiles, effettiva},
                 url  : 'actionDisposizione433.php',              // <=== CALL THE PHP FUNCTION HERE.
                 success: function ( data ) {
                     nomeimg = data;
@@ -172,6 +172,10 @@ function disposizione433(filenames, numfiles) {
                     $("#disposizione1").replaceWith($("#disposizione1").clone());
                     $("#disposizione1").closest('.gruppoinputDisposizione1').children('p.numfiles').remove();
                     $("#disposizione2").closest('.gruppoinputDisposizione2').children('p.numfiles').remove();
+
+                    $("#disposizioneEff1").replaceWith($("#disposizioneEff1").clone());
+                    $("#disposizioneEff1").closest('.gruppoinputDisposizioneEff1').children('p.numfiles').remove();
+                    $("#disposizioneEff2").closest('.gruppoinputDisposizioneEff2').children('p.numfiles').remove();
                 },
                 beforeSend:function(){
                     $('.waiting').show();
@@ -182,8 +186,8 @@ function disposizione433(filenames, numfiles) {
 
 }
 
-//INFOGRAFICA DISPOSIZIONE IN CAMPO 433
-function disposizione352(filenames, numfiles) {
+//INFOGRAFICA DISPOSIZIONE IN CAMPO 352
+function disposizione352(filenames, numfiles, effettiva) {
     var nomifiles = filenames;
     var allcsv = 0;
     var nomeimg;
@@ -204,7 +208,7 @@ function disposizione352(filenames, numfiles) {
         }
         else{
             $.ajax( { type : 'POST',
-                data : {arrayFiles: nomifiles},
+                data : {arrayFiles: nomifiles, effettiva},
                 url  : 'actionDisposizione352.php',              // <=== CALL THE PHP FUNCTION HERE.
                 success: function ( data ) {
                     nomeimg = data;
@@ -220,6 +224,10 @@ function disposizione352(filenames, numfiles) {
                     $("#disposizione1").replaceWith($("#disposizione1").clone());
                     $("#disposizione1").closest('.gruppoinputDisposizione1').children('p.numfiles').remove();
                     $("#disposizione2").closest('.gruppoinputDisposizione2').children('p.numfiles').remove();
+
+                    $("#disposizioneEff1").replaceWith($("#disposizioneEff1").clone());
+                    $("#disposizioneEff1").closest('.gruppoinputDisposizioneEff1').children('p.numfiles').remove();
+                    $("#disposizioneEff2").closest('.gruppoinputDisposizioneEff2').children('p.numfiles').remove();
                 },
                 beforeSend:function(){
                     $('.waiting').show();
@@ -229,6 +237,7 @@ function disposizione352(filenames, numfiles) {
     }
 
 }
+
 
 function removeCanvas(){
     $(".modal-body").empty();
