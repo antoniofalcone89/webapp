@@ -174,11 +174,43 @@
         //Eseguo lo script python sui file per la disposizione SQUADRA 2
         $(document).on('click', '.gruppoinputDisposizione2 > #disposizioneButton2', function() {
             //alert(testo);
+            effettiva = 0;
             if(modulo2 == 433){
-                disposizione433(names, numfiles);
+                disposizione433(names, numfiles, effettiva);
             }
             else if(modulo2 == 352){
-                disposizione352(names, numfiles);
+                disposizione352(names, numfiles, effettiva);
+            }
+
+            names = [];
+            numfiles = 0;
+        });
+
+        var effettiva;
+        //Eseguo lo script python sui file per la disposizione SQUADRA 2
+        $(document).on('click', '.gruppoinputDisposizioneEff2 > #disposizioneButtonEff2', function() {
+            //alert(testo);
+            effettiva = 1;
+            if(modulo2 == 433){
+                disposizione433(names, numfiles, effettiva);
+            }
+            else if(modulo2 == 352){
+                disposizione352(names, numfiles, effettiva);
+            }
+
+            names = [];
+            numfiles = 0;
+        });
+
+        //Eseguo lo script python sui file per la disposizione SQUADRA 1
+        $(document).on('click', '.gruppoinputDisposizioneEff1 > #disposizioneButtonEff1', function() {
+            //alert(testo);
+            effettiva = 1;
+            if(modulo1 == 433){
+                disposizione433(names, numfiles, effettiva);
+            }
+            else if(modulo1 == 352){
+                disposizione352(names, numfiles, effettiva);
             }
 
             names = [];
@@ -209,6 +241,39 @@
                 }
                 //Se scelgo il file per la prima volta allora appendo il nome del file
                 $(this).closest('.gruppoinputDisposizione2').append('<p class="numfiles">Hai selezionato '+numfiles+' files</p>');
+                $(this).parent().next().prop('disabled', false);
+            }
+
+
+        });
+
+
+
+        //Scrivo il numero dei file selezionati disposizione effettiva
+        $(document).on('change', '.inputDisposizioneEff1', function() {
+
+            numfiles = $(this).get(0).files.length;
+            for (var i = 0; i < numfiles; ++i) {
+                names.push($(this).get(0).files[i].name);
+                //alert(names[i]);
+            }
+            //Scrivo il nome del file selezionato
+            if(squadra == 1){
+                //Se ho già scelto una volta i file allora sostituisco
+                if($(this).closest('.gruppoinputDisposizioneEff1').children('p').length){
+                    $(this).closest('.gruppoinputDisposizioneEff1').children('p.numfiles').remove(); //Sostituisco il numero
+                }
+                //Se scelgo il file per la prima volta allora appendo il nome del file
+                $(this).closest('.gruppoinputDisposizioneEff1').append('<p class="numfiles">Hai selezionato '+numfiles+' files</p>');
+                $(this).parent().next().prop('disabled', false);
+            }
+            else if(squadra == 2){
+                //Se ho già scelto una volta il file devo sostituirlo
+                if($(this).closest('.gruppoinputDisposizioneEff2').children('p').length){
+                    $(this).closest('.gruppoinputDisposizioneEff2').children('p.numfiles').remove(); //Sostituisco il nome del file
+                }
+                //Se scelgo il file per la prima volta allora appendo il nome del file
+                $(this).closest('.gruppoinputDisposizioneEff2').append('<p class="numfiles">Hai selezionato '+numfiles+' files</p>');
                 $(this).parent().next().prop('disabled', false);
             }
 
@@ -372,6 +437,14 @@
                     <button type="button" class="btn btn-outline-danger" id="disposizioneButton1" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
                 </div>
 
+                <div class="gruppoinputDisposizioneEff1">
+                    <p class="lead" style="margin-bottom: 0;">Disposizione Effettiva</p>
+                    <label class="btn btn-default btn-info">
+                        Browse <input type="file" id="disposizioneEff1" style="display: none;" class="inputDisposizioneEff1" multiple="multiple"/>
+                    </label>
+                    <button type="button" class="btn btn-outline-danger" id="disposizioneButtonEff1" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
+                </div>
+
                 <div class="gruppoinputDistanze1">
                     <p class="lead" style="margin-bottom: 0;">Distanze difesa/attacco</p>
                     <label class="btn btn-default btn-info">
@@ -447,6 +520,14 @@
                     Browse <input type="file" id="disposizione2" style="display: none;" class="inputDisposizione" multiple="multiple"/>
                 </label>
                 <button type="button" class="btn btn-outline-danger" id="disposizioneButton2" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
+            </div>
+
+            <div class="gruppoinputDisposizioneEff1">
+                <p class="lead" style="margin-bottom: 0;">Disposizione Effettiva</p>
+                <label class="btn btn-default btn-info">
+                    Browse <input type="file" id="disposizioneEff2" style="display: none;" class="inputDisposizioneEff1" multiple="multiple"/>
+                </label>
+                <button type="button" class="btn btn-outline-danger" id="disposizioneButtonEff2" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
             </div>
 
             <div class="gruppoinputDistanze2">
