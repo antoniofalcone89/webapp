@@ -123,6 +123,54 @@ function distanze(filenames1, numfiles1) {
 
 }
 
+//INFOGRAFICA DISTANZE REPARTI ATTACCO DIFESA
+function numPassaggi(filenames1, numfiles1) {
+    var nomifiles = filenames1;
+    var allcsv1 = 0;
+    var nomeimg;
+
+    if(numfiles1!=10){
+        alert("Devi selezionare 10 file csv");
+    }
+    else{
+        $.each(filenames1,function(index) {
+            estensione = filenames1[index].split('.').pop().toLowerCase();
+            if(estensione != "csv"){
+                allcsv1 = 1;
+            }
+        });
+        if(allcsv1 == 1){
+            alert("Tutti i file devono essere di tipo .csv");
+            $("#distanze1").replaceWith($("#distanze1").clone());
+        }
+        else{
+            $.ajax( { type : 'POST',
+                data : {arrayFiles: nomifiles},
+                url  : 'actionPassaggi.php',              // <=== CALL THE PHP FUNCTION HERE.
+                success: function ( data ) {
+                    nomeimg = data;
+                    //alert( data );               // nome del file creato, restituito dal php
+                },
+                error: function (xhr, status, error) {
+                    // executed if something went wrong during call
+                    if (xhr.status > 0) alert('got error: ' + status); // status 0 - when load is interrupted
+                },
+                complete: function (data) {
+                    setImg2(nomeimg);
+                    $('.waiting').hide();
+                    $("#passaggi1").replaceWith($("#passaggi1").clone());
+                    $("#passaggi1").closest('.gruppoinputNumPassaggi1').children('p.numfiles').remove();
+                    $("#passaggi2").closest('.gruppoinputNumPassaggi2').children('p.numfiles').remove();
+                },
+                beforeSend:function(){
+                    $('.waiting').show();
+                }
+            });
+        }
+    }
+
+}
+
 function lightSquadra(squadra){
     if(squadra == 1){
         $('#contenuto1').effect("highlight", {}, 1000);

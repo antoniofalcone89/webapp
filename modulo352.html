@@ -40,6 +40,7 @@
     <script>
         $(document).ready(function(){
             $('.waiting').hide();
+            $('#myModal').modal('show');
         });
 
         //Scrivo il nome del file selezionato
@@ -175,15 +176,15 @@
         var names2 = [];
         var numfiles2;
         //Eseguo lo script python sui file per la distanza tra reparti
-        $(document).on('click', '.gruppoinputDistanze1 > #distanzeButton1', function() {
+        $(document).on('click', '.gruppoinputNumPassaggi1 > #passaggiButton1', function() {
             //alert(testo);
-            distanze(names2, numfiles2);
+            numPassaggi(names2, numfiles2);
             names2 = [];
             numfiles2 = 0;
         });
 
         //Eseguo lo script python sui file csv dei giocatori DISTANZA REPARTI
-        $(document).on('change', '#distanze1', function() {
+        $(document).on('change', '#passaggi1', function() {
 
             numfiles2 = $(this).get(0).files.length;
             for (var i = 0; i < numfiles2; ++i) {
@@ -193,25 +194,27 @@
             //Scrivo il numero dei file selezionati
             if(squadra == 1){
                 //Se ho già scelto una volta i file allora sostituisco
-                if($(this).closest('.gruppoinputDistanze1').children('p').length){
-                    $(this).closest('.gruppoinputDistanze1').children('p.numfiles').remove(); //Sostituisco il numero
+                if($(this).closest('.gruppoinputNumPassaggi1').children('p').length){
+                    $(this).closest('.gruppoinputNumPassaggi1').children('p.numfiles').remove(); //Sostituisco il numero
                 }
                 //Se scelgo il file per la prima volta allora appendo il nome del file
-                $(this).closest('.gruppoinputDistanze1').append('<p class="numfiles">Hai selezionato '+numfiles2+' files</p>');
+                $(this).closest('.gruppoinputNumPassaggi1').append('<p class="numfiles">Hai selezionato '+numfiles2+' files</p>');
                 $(this).parent().next().prop('disabled', false);
             }
             else if(squadra == 2){
                 //Se ho già scelto una volta il file devo sostituirlo
-                if($(this).closest('.gruppoinputDistanze2').children('p').length){
-                    $(this).closest('.gruppoinputDistanze2').children('p.numfiles').remove(); //Sostituisco il nome del file
+                if($(this).closest('.gruppoinputNumPassaggi2').children('p').length){
+                    $(this).closest('.gruppoinputNumPassaggi2').children('p.numfiles').remove(); //Sostituisco il nome del file
                 }
                 //Se scelgo il file per la prima volta allora appendo il nome del file
-                $(this).closest('.gruppoinputDistanze1').append('<p class="numfiles">Hai selezionato '+numfiles2+' files</p>');
+                $(this).closest('.gruppoinputNumPassaggi1').append('<p class="numfiles">Hai selezionato '+numfiles2+' files</p>');
                 $(this).parent().next().prop('disabled', false);
             }
 
 
         });
+
+
 
 
 
@@ -230,6 +233,12 @@
             $( "#sortable2" ).disableSelection();
 
         } );
+
+        $(document).on('click', '#remove_elem', function() {
+            $('html,body').animate({
+                        scrollTop: $("#contenuto1").offset().top},
+                    'fast');
+        });
 
 
     </script>
@@ -281,6 +290,7 @@
 <div class="container" style="padding-top:60px">
     <div class="m-t-1">
         <h1>MandrakeGraphics</h1>
+        <a href="" data-toggle="modal" data-target="#myModal">Informazioni sul modello</a> <span id="remove_text_field" class="glyphicon glyphicon-info-sign" aria-hidden="true" style="vertical-align: middle"></span>
     </div>
     <p class="lead">Quando si selezionano i file csv per mostrare la disposizione in campo della squadra, questi devono indicare i calciatori nella disposizione corrispondente al modulo, da sinistra verso destra.</p>
     <p>Esempio: il file 1.csv deve indicare il terzino sinistro, 2.csv il difensore centrale di sinistra, 3.csv il centrale destro e così via.</p>
@@ -320,7 +330,7 @@
 
         <div class="col-md-4">
             <div class="gruppoinputDisposizione1">
-                <p class="lead" style="margin-bottom: 0;">Disposizione</p>
+                <p class="lead" style="margin-bottom: 0;">Disposizione - test</p>
                 <label class="btn btn-default btn-info">
                     Browse <input type="file" id="disposizione1" style="display: none;" class="inputDisposizione1" multiple="multiple"/>
                 </label>
@@ -335,12 +345,12 @@
                 <button type="button" class="btn btn-outline-danger" id="disposizioneButtonEff1" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
             </div>
 
-            <div class="gruppoinputDistanze1">
-                <p class="lead" style="margin-bottom: 0;">Distanze difesa/attacco</p>
+            <div class="gruppoinputNumPassaggi1">
+                <p class="lead" style="margin-bottom: 0;">Numero passaggi giocatori</p>
                 <label class="btn btn-default btn-info">
-                    Browse <input type="file" id="distanze1" style="display: none;" class="inputDistanze1" multiple="multiple"/>
+                    Browse <input type="file" id="passaggi1" style="display: none;" class="inputPassaggi1" multiple="multiple"/>
                 </label>
-                <button type="button" class="btn btn-outline-danger" id="distanzeButton1" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
+                <button type="button" class="btn btn-outline-danger" id="passaggiButton1" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
             </div>
 
             <div class="gruppoinput1" id="firstimg1">
@@ -371,15 +381,18 @@
                 <li>
                     <h1>Modello 3-5-2</h1>
                 </li>
+                <h4>Test modulo</h4>
                 <li class="ui-state-default"><img src="img/juve352.png" /></li>
                 <h4>Disposizione in campo effettiva</h4>
                 <li class="ui-state-default"><img src="img/juve352eff.png" /></li>
                 <h4>Terzino sinistro</h4>
-                <li class="ui-state-default"><img src="img/terzinoSX.png" /></li>
+                <li class="ui-state-default"><img src="img/terzinoSX352.png" /></li>
                 <h4>Terzino destro</h4>
-                <li class="ui-state-default"><img src="img/terzinoDX.png" /></li>
-                <h4>Distanza reparti difesa/attacco</h4>
-                <li class="ui-state-default"><img src="img/barplot_distanzeDIFATT.png" /></li>
+                <li class="ui-state-default"><img src="img/terzinoDX352.png" /></li>
+                <h4>Regista centrocampo</h4>
+                <li class="ui-state-default"><img src="img/regista352.png" /></li>
+                <h4>Numero tocchi giocatori</h4>
+                <li class="ui-state-default"><img src="img/numPassaggi352.png" /></li>
             </ul>
             <div class="waiting">
 
@@ -395,6 +408,42 @@
 </div>
 
 
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Modulo 3-5-2: Modello empirico</h4>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li>
+                        <p>Terzini fluidifcanti coprono tutta la fascia</p>
+                    </li>
+                    <li>
+                        <p>Difensore centrale più alto possibile</p>
+                    </li>
+                    <li>
+                        <p>Difensore centrale primo regista: maggior numero di tocchi di palla</p>
+                    </li>
+                    <li>
+                        <p>Regista di centrocampo deve coprire la zona centrale fino alla trequarti</p>
+                    </li>
+                    <li>
+                        <p>Punte mai sull'esterno</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 
