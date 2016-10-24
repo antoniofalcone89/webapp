@@ -32,7 +32,7 @@ def make_fig():
     filecsv = sys.argv[1]
     filename, file_extension = os.path.splitext(filecsv)
     # print sys.argv[1]
-    x, y = np.genfromtxt(filecsv, delimiter=',', unpack=True)
+    x, y = np.genfromtxt("singlePlayer/"+filecsv, delimiter=',', unpack=True)
     form = cgi.FieldStorage()
 
     #print(x[1], y[1])

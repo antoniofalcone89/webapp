@@ -139,19 +139,6 @@
                 });
             });
         });
-        $(document).ready(function(){
-            var element = $("#contenitore"); // global variable
-            var getCanvas; // global variable
-            $("#save2").on('click', function () {
-                html2canvas(element, {
-                    onrendered: function (canvas) {
-                        $(".modal-body").append("<span>Immagine in formato .png contenente l'infografica.</span>");
-                        $(".modal-body").append(canvas);
-                        getCanvas = canvas;
-                    }
-                });
-            });
-        });
 
 
         var names = [];
