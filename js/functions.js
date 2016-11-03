@@ -318,6 +318,27 @@ function mostraBottoniSquadra2() {
     squadra = 2;
 }
 
+function set433_1() {
+    $('.gruppoinputDistanze1').show();
+    $('.gruppoinputNumPassaggi1').hide();
+
+}
+
+function set433_2() {
+    $('.gruppoinputDistanze2').show();
+    $('.gruppoinputNumPassaggi2').hide();
+}
+
+function set352_1() {
+    $('.gruppoinputDistanze1').hide();
+    $('.gruppoinputNumPassaggi1').show();
+}
+
+function set352_2() {
+    $('.gruppoinputDistanze2').hide();
+    $('.gruppoinputNumPassaggi2').show();
+}
+
 function mostraBottoniSquadra1() {
     $('#bottoni_squadra2').hide();
     $('#bottoni_squadra1').show();

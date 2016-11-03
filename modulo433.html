@@ -40,6 +40,8 @@
     <script>
         $(document).ready(function(){
             $('.waiting').hide();
+            $('.waiting').hide();
+            $('#myModal').modal('show');
         });
 
         //Scrivo il nome del file selezionato
@@ -278,7 +280,8 @@
 <!-- Begin page content -->
 <div class="container" style="padding-top:60px">
     <div class="m-t-1">
-        <h1>MandrakeGraphics</h1>
+        <h1>MandrakeGraphics</h1><h2>4-3-3</h2>
+        <a href="" data-toggle="modal" data-target="#myModal">Informazioni sul modello</a> <span id="remove_text_field" class="glyphicon glyphicon-info-sign" aria-hidden="true" style="vertical-align: middle"></span>
     </div>
     <p class="lead">Quando si selezionano i file csv per mostrare la disposizione in campo della squadra, questi devono indicare i calciatori nella disposizione corrispondente al modulo, da sinistra verso destra.</p>
     <p>Esempio: il file 1.csv deve indicare il terzino sinistro, 2.csv il difensore centrale di sinistra, 3.csv il centrale destro e così via.</p>
@@ -393,6 +396,42 @@
     </div>
 
 
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">4-3-3: Modello empirico</h4>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li>
+                        <p>I terzini sono rispettivamente uno difensivo, l'altro fluidificante (tutto campo)</p>
+                    </li>
+                    <li>
+                        <p>Le distanze medie tra difesa e attacco devono restare costanti</p>
+                    </li>
+                    <li>
+                        <p>Gli interni di centrocampo sono rispettivamente uno difensivo, l'altro cerca di inserirsi tra le linee</p>
+                    </li>
+                    <li>
+                        <p>Il mediano (o regista) è quello che tocca più volte la palla tra tutti i giocatori</p>
+                    </li>
+                    <li>
+                        <p>La punta centrale non attacca la profondità ma gioca la palla sulla trequarti (sponde o passaggi)</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 

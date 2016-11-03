@@ -50,6 +50,12 @@
             $('#contenuto1').effect("highlight", {}, 5000);
             $('.waiting').hide();
             $('#bottoni_squadra2').hide();
+            $('.gruppoinputNumPassaggi1').hide();
+            $('.gruppoinputDistanze1').hide();
+            $('.gruppoinputDistanze2').hide();
+            $('.gruppoinputNumPassaggi2').hide();
+            $('#forms1').find(':input').prop('disabled', true);
+            $('#forms2').find(':input').prop('disabled', true);
         });
 
         //Scrivo il nome del file selezionato
@@ -392,6 +398,7 @@
             </div>
 
 
+
             <div class="col-md-4">
                 <form class="form-inline" id="firstInput1">
                     <div class="form-group">
@@ -410,12 +417,13 @@
                         Modulo squadra
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownModuloButton">
-                        <a class="dropdown-item" href="#" onclick="modulo1 = 433; $('#dropdownModulo1').html('4-3-3');">4-3-3</a>
-                        <a class="dropdown-item" href="#" onclick="modulo1 = 352; $('#dropdownModulo1').html('3-5-2');">3-5-2</a>
+                        <a class="dropdown-item" href="#" onclick="modulo1 = 433; $('#dropdownModulo1').html('4-3-3'); set433_1(); $('#forms1').find(':input').prop('disabled', false);">4-3-3</a>
+                        <a class="dropdown-item" href="#" onclick="modulo1 = 352; $('#dropdownModulo1').html('3-5-2'); set352_1();">3-5-2</a>
                     </div>
 
                 </div>
 
+                <div id="forms1">
                 <div class="gruppoinputDisposizione1">
                     <p class="lead" style="margin-bottom: 0;">Disposizione</p>
                     <label class="btn btn-default btn-info">
@@ -430,6 +438,14 @@
                         Browse <input type="file" id="disposizioneEff1" style="display: none;" class="inputDisposizioneEff1" multiple="multiple"/>
                     </label>
                     <button type="button" class="btn btn-outline-danger" id="disposizioneButtonEff1" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
+                </div>
+
+                <div class="gruppoinputNumPassaggi1">
+                    <p class="lead" style="margin-bottom: 0;">Numero tocchi giocatori</p>
+                    <label class="btn btn-default btn-info">
+                        Browse <input type="file" id="passaggi1" style="display: none;" class="inputPassaggi1" multiple="multiple"/>
+                    </label>
+                    <button type="button" class="btn btn-outline-danger" id="passaggiButton1" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
                 </div>
 
                 <div class="gruppoinputDistanze1">
@@ -455,6 +471,7 @@
                     <button type="button" class="btn btn-danger" id="remove_all_squadra1" onclick="removeSquadra1()">Svuota</button>
                     <button type="button" class="btn btn-primary" id="bottonisquadra2" onclick="mostraBottoniSquadra2()">Squadra 2</button>
                 </div>
+            </div>
             </div>
 
 
@@ -497,10 +514,12 @@
                     Modulo squadra
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownModuloButton">
-                    <a class="dropdown-item" href="#" onclick="modulo2 = 433; $('#dropdownModulo2').html('4-3-3');">4-3-3</a>
-                    <a class="dropdown-item" href="#" onclick="modulo2 = 352; $('#dropdownModulo2').html('3-5-2');">3-5-2</a>
+                    <a class="dropdown-item" href="#" onclick="modulo2 = 433; $('#dropdownModulo2').html('4-3-3'); set433_2();$('#forms2').find(':input').prop('disabled', false);">4-3-3</a>
+                    <a class="dropdown-item" href="#" onclick="modulo2 = 352; $('#dropdownModulo2').html('3-5-2'); set352_2();$('#forms2').find(':input').prop('disabled', false);">3-5-2</a>
                 </div>
             </div>
+
+            <div id="forms2">
             <div class="gruppoinputDisposizione2">
                 <p class="lead" style="margin-bottom: 0;">Disposizione</p>
                 <label class="btn btn-default btn-info">
@@ -517,7 +536,15 @@
                 <button type="button" class="btn btn-outline-danger" id="disposizioneButtonEff2" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
             </div>
 
-            <div class="gruppoinputDistanze2">
+            <div class="gruppoinputNumPassaggi2" style="display: none">
+                <p class="lead" style="margin-bottom: 0;">Numero tocchi giocatori</p>
+                <label class="btn btn-default btn-info">
+                    Browse <input type="file" id="passaggi2" style="display: none;" class="inputPassaggi2" multiple="multiple"/>
+                </label>
+                <button type="button" class="btn btn-outline-danger" id="passaggiButton2" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
+            </div>
+
+            <div class="gruppoinputDistanze2" style="display: none">
                 <p class="lead" style="margin-bottom: 0;">Distanze difesa/attacco</p>
                 <label class="btn btn-default btn-info">
                     Browse <input type="file" id="distanze2" style="display: none;" class="inputDistanze" multiple="multiple"/>
@@ -541,6 +568,7 @@
                 <button type="button" class="btn btn-primary" id="bottonisquadra1" onclick="mostraBottoniSquadra1()">Squadra 1</button>
             </div>
         </div>
+            </div>
 
 
 
