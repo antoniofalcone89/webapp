@@ -281,7 +281,7 @@
 <div class="container" style="padding-top:60px">
     <div class="m-t-1">
         <h1>MandrakeGraphics</h1><h2>4-3-3</h2>
-        <a href="" data-toggle="modal" data-target="#myModal">Informazioni sul modello</a> <span id="remove_text_field" class="glyphicon glyphicon-info-sign" aria-hidden="true" style="vertical-align: middle"></span>
+        <a href="" data-toggle="modal" data-target="#myModal">Informazioni sul modello</a> <span class="glyphicon glyphicon-info-sign" aria-hidden="true" style="vertical-align: middle"></span>
     </div>
     <p class="lead">Quando si selezionano i file csv per mostrare la disposizione in campo della squadra, questi devono indicare i calciatori nella disposizione corrispondente al modulo, da sinistra verso destra.</p>
     <p>Esempio: il file 1.csv deve indicare il terzino sinistro, 2.csv il difensore centrale di sinistra, 3.csv il centrale destro e così via.</p>
@@ -292,23 +292,14 @@
     <div class="row">
 
 
-            <div class="col-md-4">
-                <div class="dropdown">
-                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Aggiungi
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#" onclick="addElements()">Heatmap</a>
-                        <a class="dropdown-item" href="#" onclick="addText()">Testo</a>
-                    </div>
-                    <button type="button" class="btn btn-outline-primary" id="remove_elem">Rimuovi</button>
-
-                </div>
-            </div>
-
-
-            <div class="col-md-4">
-                <form class="form-inline" id="firstInput1">
+            <div class="col-md-6">
+                <form class="form-inline" id="firstI<div class="btn-group" role="group" aria-label="Basic example" style="margin-top: 8px">
+                <button type="button" class="btn btn-success" id="save" onclick="captureCurrentDiv()">
+                    Salva
+                </button>
+                <button type="button" class="btn btn-warning" id="remove_elem">Rimuovi elem</button>
+                <button type="button" class="btn btn-danger" id="remove_all" onclick="removeSquadra1()">Svuota</button>
+            </div>nput1">
                     <div class="form-group">
                         <input type="text" class="form-control" id="title" placeholder="Titolo">
                     </div>
@@ -316,48 +307,56 @@
 
                 </form>
 
+                <form class="form-inline" id="firstInput" style="margin-top: 8px;">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="text" placeholder="Testo">
+                    </div>
+                    <button type="button" class="btn btn-primary" id="inserisciTesto" onclick="setText(text.value)">Ok</button>
+                    </form>
+
             </div>
 
-            <div class="col-md-4">
-                <div class="gruppoinputDisposizione1">
-                    <p class="lead" style="margin-bottom: 0;">Disposizione</p>
-                    <label class="btn btn-default btn-info">
-                        Browse <input type="file" id="disposizione1" style="display: none;" class="inputDisposizione1" multiple="multiple"/>
-                    </label>
-                    <button type="button" class="btn btn-outline-danger" id="disposizioneButton1" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
-                </div>
+            <div class="col-md-6">
+                <div class="col-md-6">
+                    <div class="gruppoinputDisposizione1">
+                        <p class="lead" style="margin-bottom: 0;">Disposizione</p>
+                        <label class="btn btn-default btn-info">
+                            Browse <input type="file" id="disposizione1" style="display: none;" class="inputDisposizione1" multiple="multiple"/>
+                        </label>
+                        <button type="button" class="btn btn-outline-danger" id="disposizioneButton1" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
+                    </div>
 
-                <div class="gruppoinputDisposizioneEff1">
-                    <p class="lead" style="margin-bottom: 0;">Disposizione Effettiva</p>
-                    <label class="btn btn-default btn-info">
-                        Browse <input type="file" id="disposizioneEff1" style="display: none;" class="inputDisposizioneEff1" multiple="multiple"/>
-                    </label>
-                    <button type="button" class="btn btn-outline-danger" id="disposizioneButtonEff1" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
-                </div>
-
-                <div class="gruppoinputDistanze1">
-                    <p class="lead" style="margin-bottom: 0;">Distanze difesa/attacco</p>
-                    <label class="btn btn-default btn-info">
-                        Browse <input type="file" id="distanze1" style="display: none;" class="inputDistanze1" multiple="multiple"/>
-                    </label>
-                    <button type="button" class="btn btn-outline-danger" id="distanzeButton1" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
-                </div>
-
-                <div class="gruppoinput1" id="firstimg1">
-                    <p class="lead" style="margin-bottom: 0;">Heatmap</p>
-                    <label class="btn btn-default btn-info">
-                        Browse <input type="file" style="display: none;" class="inputfile"/>
-                    </label>
-                    <button type="submit" class="btn btn-outline-danger" disabled="enabled" style="margin-bottom: 8px;">Ok</button>
-                </div>
+                    <div class="gruppoinputDisposizioneEff1">
+                        <p class="lead" style="margin-bottom: 0;">Disposizione Effettiva</p>
+                        <label class="btn btn-default btn-info">
+                            Browse <input type="file" id="disposizioneEff1" style="display: none;" class="inputDisposizioneEff1" multiple="multiple"/>
+                        </label>
+                        <button type="button" class="btn btn-outline-danger" id="disposizioneButtonEff1" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
+                    </div>
 
 
-                <div class="btn-group" role="group" aria-label="Basic example" style="margin-bottom: 8px">
-                    <button type="button" class="btn btn-success" id="save" onclick="captureCurrentDiv()">
-                        Salva
-                    </button>
-                    <button type="button" class="btn btn-danger" id="remove_all" onclick="removeSquadra1()">Svuota</button>
                 </div>
+                <div class="col-md-6">
+                    <div class="gruppoinput1" id="firstimg1">
+                        <p class="lead" style="margin-bottom: 0;">Heatmap</p>
+                        <label class="btn btn-default btn-info">
+                            Browse <input type="file" style="display: none;" class="inputfile"/>
+                        </label>
+                        <button type="submit" class="btn btn-outline-danger" disabled="enabled" style="margin-bottom: 8px;">Ok</button>
+                    </div>
+                    <div class="gruppoinputDistanze1">
+                        <p class="lead" style="margin-bottom: 0;">Distanze difesa/attacco</p>
+                        <label class="btn btn-default btn-info">
+                            Browse <input type="file" id="distanze1" style="display: none;" class="inputDistanze1" multiple="multiple"/>
+                        </label>
+                        <button type="button" class="btn btn-outline-danger" id="distanzeButton1" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
+                    </div>
+
+                </div>
+
+
+
+
             </div>
 
 

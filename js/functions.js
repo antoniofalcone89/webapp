@@ -314,6 +314,7 @@ function mostraBottoniSquadra2() {
     $('#bottoni_squadra1').hide();
     $('#bottoni_squadra2').show();
     $("#disposizione2").replaceWith($("#disposizione2").clone());
+
     lightSquadra(2);
     squadra = 2;
 }
@@ -388,14 +389,15 @@ function setTitle(){
 }
 
 function setText(){
-    var testo = document.getElementById('text').value;
-
+    //var testo = document.getElementById('text').value;
     if(squadra == 1){
+        var testo = $('#text').val();
         $('#sortable1').prepend('<li class="ui-state-default"><h4>'+testo+'</h4></li>');
         $('#text').val('');
         $('#sortable1').css('cursor', 'default');
     }
     else if(squadra == 2){
+        var testo = $('#text2').val();
         $('#sortable2').prepend('<li class="ui-state-default"><h4>'+testo+'</h4></li>');
         $('#text').val('');
         $('#sortable2').css('cursor', 'default');
