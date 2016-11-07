@@ -50,11 +50,9 @@
             $('#contenuto1').effect("highlight", {}, 5000);
             $('.waiting').hide();
             $('#bottoni_squadra2').hide();
-            $('.gruppoinputNumPassaggi1').hide();
             $('.gruppoinputDistanze1').hide();
             $('.gruppoinputDistanze2').hide();
             $('#bottonisquadra1').hide();
-            $('.gruppoinputNumPassaggi2').hide();
             $('#forms1').find(':input').prop('disabled', true);
             $('#forms2').find(':input').prop('disabled', true);
         });
@@ -379,6 +377,57 @@
 
 
         });
+
+
+        var names3 = [];
+        var numfiles3;
+
+        //Eseguo lo script python sui file per num passaggi
+        $(document).on('click', '.gruppoinputNumPassaggi1 > #passaggiButton1', function() {
+            //alert(testo);
+            numPassaggi(names3, numfiles3, modulo1);
+            names3 = [];
+            numfiles3 = 0;
+        });
+
+        //Eseguo lo script python sui file per num passaggi
+        $(document).on('click', '.gruppoinputNumPassaggi1 > #passaggiButton2', function() {
+            //alert(testo);
+            numPassaggi(names3, numfiles3, modulo1);
+            names3 = [];
+            numfiles3 = 0;
+        });
+
+        //Eseguo lo script python sui file csv dei giocatori NUM TOCCHI
+        $(document).on('change', '.inputPassaggi', function() {
+
+            numfiles3 = $(this).get(0).files.length;
+            for (var i = 0; i < numfiles3; ++i) {
+                names3.push($(this).get(0).files[i].name);
+                //alert(names2[i]);
+            }
+            //Scrivo il numero dei file selezionati
+            if(squadra == 1){
+                //Se ho già scelto una volta i file allora sostituisco
+                if($(this).closest('.gruppoinputNumPassaggi1').children('p').length){
+                    $(this).closest('.gruppoinputNumPassaggi1').children('p.numfiles').remove(); //Sostituisco il numero
+                }
+                //Se scelgo il file per la prima volta allora appendo il nome del file
+                $(this).closest('.gruppoinputNumPassaggi1').append('<p class="numfiles">Hai selezionato '+numfiles3+' files</p>');
+                $(this).parent().next().prop('disabled', false);
+            }
+            else if(squadra == 2){
+                //Se ho già scelto una volta il file devo sostituirlo
+                if($(this).closest('.gruppoinputNumPassaggi2').children('p').length){
+                    $(this).closest('.gruppoinputNumPassaggi2').children('p.numfiles').remove(); //Sostituisco il nome del file
+                }
+                //Se scelgo il file per la prima volta allora appendo il nome del file
+                $(this).closest('.gruppoinputNumPassaggi1').append('<p class="numfiles">Hai selezionato '+numfiles3+' files</p>');
+                $(this).parent().next().prop('disabled', false);
+            }
+
+
+        });
     </script>
 
 
@@ -500,12 +549,12 @@
                         <div class="gruppoinputNumPassaggi1">
                             <p class="lead" style="margin-bottom: 0;">Numero tocchi giocatori</p>
                             <label class="btn btn-default btn-info">
-                                Browse <input type="file" id="passaggi1" style="display: none;" class="inputPassaggi1" multiple="multiple"/>
+                                Browse <input type="file" id="passaggi1" style="display: none;" class="inputPassaggi" multiple="multiple"/>
                             </label>
                             <button type="button" class="btn btn-outline-danger" id="passaggiButton1" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
                         </div>
 
-                        <div class="gruppoinputDistanze1">
+                        <div class="gruppoinputDistanze1"  style="display: none">
                             <p class="lead" style="margin-bottom: 0;">Distanze difesa/attacco</p>
                             <label class="btn btn-default btn-info">
                                 Browse <input type="file" id="distanze1" style="display: none;" class="inputDistanze" multiple="multiple"/>
@@ -591,10 +640,10 @@
 
             <div class="col-md-6">
                 <div id="forms2">
-                    <div class="gruppoinputNumPassaggi2" style="display: none">
+                    <div class="gruppoinputNumPassaggi2">
                         <p class="lead" style="margin-bottom: 0;">Numero tocchi giocatori</p>
                         <label class="btn btn-default btn-info">
-                            Browse <input type="file" id="passaggi2" style="display: none;" class="inputPassaggi2" multiple="multiple"/>
+                            Browse <input type="file" id="passaggi2" style="display: none;" class="inputPassaggi" multiple="multiple"/>
                         </label>
                         <button type="button" class="btn btn-outline-danger" id="passaggiButton2" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
                     </div>
@@ -627,7 +676,12 @@
 
     <!--Contenuto infografiche squadre-->
 
+    <div class="row" style="margin-top: 8px;">
+        <div class="col-md-6"><h5>Squadra 1</h5></div>
+        <div class="col-md-6"><h5>Squadra 2</h5></div>
+    </div>
     <div class="row" style="margin-top: 16px;" id="contenitore">
+
         <div class="col-md-6" id="contenuto1">
 
             <ul id="sortable1">
@@ -641,12 +695,16 @@
                 <li class="ui-state-default"><img src="img/terzinoDX.png" /></li>
                 <h4>Distanza reparti difesa/attacco</h4>
                 <li class="ui-state-default"><img src="img/barplot_distanzeDIFATT.png" /></li>
+                <h4>Numero tocchi giocatori</h4>
+                <li class="ui-state-default"><img src="img/tocchiRealMadrid.png" /></li>
             </ul>
             <div class="waiting">
 
             </div>
         </div>
+
         <div class="col-md-6" id="contenuto2">
+
 
             <ul id="sortable2">
 
@@ -660,6 +718,8 @@
                 <li class="ui-state-default"><img src="img/terzinoDX.png" /></li>
                 <h4>Distanza reparti difesa/attacco</h4>
                 <li class="ui-state-default"><img src="img/barplot_distanzeDIFATT.png" /></li>
+                <h4>Numero tocchi giocatori</h4>
+                <li class="ui-state-default"><img src="img/tocchiRealMadrid.png" /></li>
             </ul>
         </div>
     </div>

@@ -236,6 +236,49 @@
 
         });
 
+        var names3 = [];
+        var numfiles3;
+        var modulo;
+        //Eseguo lo script python sui file per la distanza tra reparti
+        $(document).on('click', '.gruppoinputNumPassaggi1 > #passaggiButton1', function() {
+            //alert(testo);
+            modulo = 433;
+            numPassaggi(names3, numfiles3, modulo);
+            names3 = [];
+            numfiles3 = 0;
+        });
+
+        //Eseguo lo script python sui file csv dei giocatori NUM TOCCHI
+        $(document).on('change', '#passaggi1', function() {
+
+            numfiles3 = $(this).get(0).files.length;
+            for (var i = 0; i < numfiles3; ++i) {
+                names3.push($(this).get(0).files[i].name);
+                //alert(names2[i]);
+            }
+            //Scrivo il numero dei file selezionati
+            if(squadra == 1){
+                //Se ho già scelto una volta i file allora sostituisco
+                if($(this).closest('.gruppoinputNumPassaggi1').children('p').length){
+                    $(this).closest('.gruppoinputNumPassaggi1').children('p.numfiles').remove(); //Sostituisco il numero
+                }
+                //Se scelgo il file per la prima volta allora appendo il nome del file
+                $(this).closest('.gruppoinputNumPassaggi1').append('<p class="numfiles">Hai selezionato '+numfiles3+' files</p>');
+                $(this).parent().next().prop('disabled', false);
+            }
+            else if(squadra == 2){
+                //Se ho già scelto una volta il file devo sostituirlo
+                if($(this).closest('.gruppoinputNumPassaggi2').children('p').length){
+                    $(this).closest('.gruppoinputNumPassaggi2').children('p.numfiles').remove(); //Sostituisco il nome del file
+                }
+                //Se scelgo il file per la prima volta allora appendo il nome del file
+                $(this).closest('.gruppoinputNumPassaggi1').append('<p class="numfiles">Hai selezionato '+numfiles3+' files</p>');
+                $(this).parent().next().prop('disabled', false);
+            }
+
+
+        });
+
 
 
 
@@ -361,6 +404,13 @@
 
                 </div>
                 <div class="col-md-6">
+                    <div class="gruppoinputNumPassaggi1">
+                        <p class="lead" style="margin-bottom: 0;">Numero tocchi giocatori</p>
+                        <label class="btn btn-default btn-info">
+                            Browse <input type="file" id="passaggi1" style="display: none;" class="inputPassaggi1" multiple="multiple"/>
+                        </label>
+                        <button type="button" class="btn btn-outline-danger" id="passaggiButton1" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
+                    </div>
                     <div class="gruppoinput1" id="firstimg1">
                         <p class="lead" style="margin-bottom: 0;">Heatmap</p>
                         <label class="btn btn-default btn-info">
@@ -394,6 +444,7 @@
                 <li>
                     <h1>Modello 4-3-3</h1>
                 </li>
+                <h4>Test modulo</h4>
                 <li class="ui-state-default"><img src="img/realmadrid.png" /></li>
                 <h4>Disposizione in campo effettiva</h4>
                 <li class="ui-state-default"><img src="img/realEff.png" /></li>
@@ -403,6 +454,8 @@
                 <li class="ui-state-default"><img src="img/terzinoDX.png" /></li>
                 <h4>Distanza reparti difesa/attacco</h4>
                 <li class="ui-state-default"><img src="img/barplot_distanzeDIFATT.png" /></li>
+                <h4>Numero tocchi giocatori</h4>
+                <li class="ui-state-default"><img src="img/tocchiRealMadrid.png" /></li>
             </ul>
             <div class="waiting">
 

@@ -124,7 +124,7 @@ function distanze(filenames1, numfiles1) {
 }
 
 //INFOGRAFICA DISTANZE REPARTI ATTACCO DIFESA
-function numPassaggi(filenames1, numfiles1) {
+function numPassaggi(filenames1, numfiles1, modulo) {
     var nomifiles = filenames1;
     var allcsv1 = 0;
     var nomeimg;
@@ -141,11 +141,11 @@ function numPassaggi(filenames1, numfiles1) {
         });
         if(allcsv1 == 1){
             alert("Tutti i file devono essere di tipo .csv");
-            $("#distanze1").replaceWith($("#distanze1").clone());
+            $("#passaggi").replaceWith($("#passaggi1").clone());
         }
         else{
             $.ajax( { type : 'POST',
-                data : {arrayFiles: nomifiles},
+                data : {arrayFiles: nomifiles, modulo},
                 url  : 'actionPassaggi.php',              // <=== CALL THE PHP FUNCTION HERE.
                 success: function ( data ) {
                     nomeimg = data;
@@ -343,23 +343,21 @@ function cambiaSquadra(){
 
 function set433_1() {
     $('.gruppoinputDistanze1').show();
-    $('.gruppoinputNumPassaggi1').hide();
+    $('.gruppoinputDistanze2').hide();
 
 }
 
 function set433_2() {
     $('.gruppoinputDistanze2').show();
-    $('.gruppoinputNumPassaggi2').hide();
+
 }
 
 function set352_1() {
     $('.gruppoinputDistanze1').hide();
-    $('.gruppoinputNumPassaggi1').show();
 }
 
 function set352_2() {
     $('.gruppoinputDistanze2').hide();
-    $('.gruppoinputNumPassaggi2').show();
 }
 
 function mostraBottoniSquadra1() {
@@ -416,13 +414,13 @@ function setText(){
     //var testo = document.getElementById('text').value;
     if(squadra == 1){
         var testo = $('#text').val();
-        $('#sortable1').prepend('<li class="ui-state-default"><h4>'+testo+'</h4></li>');
+        $('#sortable1').append('<li class="ui-state-default"><h4>'+testo+'</h4></li>');
         $('#text').val('');
         $('#sortable1').css('cursor', 'default');
     }
     else if(squadra == 2){
         var testo = $('#text2').val();
-        $('#sortable2').prepend('<li class="ui-state-default"><h4>'+testo+'</h4></li>');
+        $('#sortable2').append('<li class="ui-state-default"><h4>'+testo+'</h4></li>');
         $('#text').val('');
         $('#sortable2').css('cursor', 'default');
     }

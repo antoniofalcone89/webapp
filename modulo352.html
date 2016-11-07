@@ -199,16 +199,17 @@
 
         var names2 = [];
         var numfiles2;
+        var modulo;
         //Eseguo lo script python sui file per la distanza tra reparti
         $(document).on('click', '.gruppoinputNumPassaggi1 > #passaggiButton1', function() {
             //alert(testo);
-            var modulo = 352;
-            numPassaggi(names2, numfiles2);
+            modulo = 352;
+            numPassaggi(names2, numfiles2, modulo);
             names2 = [];
             numfiles2 = 0;
         });
 
-        //Eseguo lo script python sui file csv dei giocatori DISTANZA REPARTI
+        //Eseguo lo script python sui file csv dei giocatori NUM TOCCHI
         $(document).on('change', '#passaggi1', function() {
 
             numfiles2 = $(this).get(0).files.length;
