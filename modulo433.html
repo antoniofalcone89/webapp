@@ -68,16 +68,39 @@
 
         });
 
+        var rmv = 0;
         //Rimuovo gli elementi su cui clicco nella colonna di destra
         $(document).on('click', '#remove_elem', function() {
-            $('#contenuto1').effect("highlight", {}, 1000);
-            //$('div .col-md-8').css('cursor', 'crosshair');
-            $('#contenuto1').click(function(e){
-                $(e.target).remove();
-                $('#contenuto1').off('click'); //Dopo aver rimosso un elemento disattivo, bisogna cliccare di nuovo su remove per rim un altro
-                //$('#sortable').css('cursor', 'default');
-            });
+            if(rmv == 1){
+                $('#contenuto1').off('click');
+                $('#contenutoFisso').animate({opacity:1},500);
+                $('#remove_elem').html('Rimuovi elem');
+                rmv = 0;
+                $("#save").prop('disabled',false);
+                $("#remove_all").prop('disabled',false);
+            }
+            else if(rmv == 0){
+                rmv = 1;
+                $("#save").prop('disabled',true);
+                $("#remove_all").prop('disabled',true);
+                $('#contenuto1').effect("highlight", {}, 1000);
+                $('#contenutoFisso').animate({opacity:0.2},500);
+                $('#remove_elem').html('Annulla');
+                $('#contenuto1').click(function(e){
+                    rmv = 0;
+                    $(e.target).remove();
+                    $("#save").prop('disabled',false);
+                    $("#remove_all").prop('disabled',false);
+                    $('#contenuto1').off('click');
+                    $('#contenutoFisso').animate({opacity:1},500);
+                    $('#remove_elem').html('Rimuovi elem');//Dopo aver rimosso un elemento disattivo, bisogna cliccare di nuovo su remove per rim un altro
+                    //$('#sortable').css('cursor', 'default');
+                });
+            }
+
+
         });
+
 
         //Eseguo lo script python sul file selezionato
         $(document).on('click', '.gruppoinput1 > .btn-outline-danger', function() {
@@ -293,18 +316,12 @@
 
 
             <div class="col-md-6">
-                <form class="form-inline" id="firstI<div class="btn-group" role="group" aria-label="Basic example" style="margin-top: 8px">
-                <button type="button" class="btn btn-success" id="save" onclick="captureCurrentDiv()">
-                    Salva
-                </button>
-                <button type="button" class="btn btn-warning" id="remove_elem">Rimuovi elem</button>
-                <button type="button" class="btn btn-danger" id="remove_all" onclick="removeSquadra1()">Svuota</button>
-            </div>nput1">
+
+                <form class="form-inline" id="firstInput1">
                     <div class="form-group">
                         <input type="text" class="form-control" id="title" placeholder="Titolo">
                     </div>
                     <button type="button" class="btn btn-primary" id="inserisciTitolo" onclick="setTitle()">Ok</button>
-
                 </form>
 
                 <form class="form-inline" id="firstInput" style="margin-top: 8px;">
@@ -313,6 +330,13 @@
                     </div>
                     <button type="button" class="btn btn-primary" id="inserisciTesto" onclick="setText(text.value)">Ok</button>
                     </form>
+                <div class="btn-group" role="group" aria-label="Basic example" style="margin-top: 8px">
+                    <button type="button" class="btn btn-success" id="save" onclick="captureCurrentDiv()">
+                        Salva
+                    </button>
+                    <button type="button" class="btn btn-warning" id="remove_elem">Rimuovi elem</button>
+                    <button type="button" class="btn btn-danger" id="remove_all" onclick="removeSquadra1()">Svuota</button>
+                </div>
 
             </div>
 
@@ -364,7 +388,7 @@
         </div>
 
     <div class="row" style="margin-top: 16px;" id="contenitore">
-        <div class="col-md-6">
+        <div class="col-md-6" id="contenutoFisso">
 
             <ul>
                 <li>

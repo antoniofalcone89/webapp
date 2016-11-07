@@ -82,27 +82,81 @@
 
         });
 
+
+
+        var rmv = 0;
         //Rimuovo gli elementi su cui clicco nella colonna di destra
         $(document).on('click', '#remove_elem2', function() {
-            $('#contenuto2').effect("highlight", {}, 1000);
-            //$('div .col-md-8').css('cursor', 'crosshair');
-            $('#contenuto2').click(function(e){
-                $(e.target).remove();
-                $('#contenuto2').off('click'); //Dopo aver rimosso un elemento disattivo, bisogna cliccare di nuovo su remove per rim un altro
-                //$('#sortable').css('cursor', 'default');
-            });
+            if(rmv == 1){
+                $('#contenuto2').off('click');
+                $('#contenuto1').animate({opacity:1},500);
+                $('#remove_elem2').html('Rimuovi elem');
+                $("#save2").prop('disabled',false);
+                $("#bottonisquadra1").prop('disabled',false);
+                $("#remove_all_squadra2").prop('disabled',false);
+                rmv = 0;
+            }
+            else if(rmv == 0){
+                $("#save2").prop('disabled',true);
+                $("#bottonisquadra1").prop('disabled',true);
+                $("#remove_all_squadra2").prop('disabled',true);
+                rmv = 1;
+                $('#contenuto2').effect("highlight", {}, 1000);
+                $('#contenuto1').animate({opacity:0.2},500);
+                $('#remove_elem2').html('Annulla');
+                $('#contenuto2').click(function(e){
+                    $("#save2").prop('disabled',false);
+                    $("#bottonisquadra1").prop('disabled',false);
+                    $("#remove_all_squadra2").prop('disabled',false);
+                    rmv = 0;
+                    $(e.target).remove();
+                    $('#contenuto2').off('click');
+                    $('#contenuto1').animate({opacity:1},500);
+                    $('#remove_elem2').html('Rimuovi elem');//Dopo aver rimosso un elemento disattivo, bisogna cliccare di nuovo su remove per rim un altro
+                    //$('#sortable').css('cursor', 'default');
+                });
+            }
+
+
         });
 
+
+        var rmv1 = 0;
         //Rimuovo gli elementi su cui clicco nella colonna di destra
         $(document).on('click', '#remove_elem1', function() {
-            $('#contenuto1').effect("highlight", {}, 1000);
-            //$('div .col-md-8').css('cursor', 'crosshair');
-            $('#contenuto1').click(function(e){
-                $(e.target).remove();
-                $('#contenuto1').off('click'); //Dopo aver rimosso un elemento disattivo, bisogna cliccare di nuovo su remove per rim un altro
-                //$('#sortable').css('cursor', 'default');
-            });
+            if(rmv1 == 1){
+                $('#contenuto1').off('click');
+                $('#contenuto2').animate({opacity:1},500);
+                $('#remove_elem1').html('Rimuovi elem');
+                $("#save").prop('disabled',false);
+                $("#bottonisquadra2").prop('disabled',false);
+                $("#remove_all_squadra1").prop('disabled',false);
+                rmv1 = 0;
+            }
+            else if(rmv1 == 0){
+                $("#save").prop('disabled',true);
+                $("#bottonisquadra2").prop('disabled',true);
+                $("#remove_all_squadra1").prop('disabled',true);
+                rmv1 = 1;
+                $('#contenuto1').effect("highlight", {}, 1000);
+                $('#contenuto2').animate({opacity:0.2},500);
+                $('#remove_elem1').html('Annulla');
+                $('#contenuto1').click(function(e){
+                    $("#save").prop('disabled',false);
+                    $("#bottonisquadra2").prop('disabled',false);
+                    $("#remove_all_squadra1").prop('disabled',false);
+                    rmv1 = 0;
+                    $(e.target).remove();
+                    $('#contenuto1').off('click');
+                    $('#contenuto2').animate({opacity:1},500);
+                    $('#remove_elem1').html('Rimuovi elem');//Dopo aver rimosso un elemento disattivo, bisogna cliccare di nuovo su remove per rim un altro
+                    //$('#sortable').css('cursor', 'default');
+                });
+            }
+
+
         });
+
 
         //Eseguo lo script python sul file selezionato
         $(document).on('click', '.gruppoinput1 > .btn-outline-danger', function() {
