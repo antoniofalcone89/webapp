@@ -53,6 +53,7 @@
             $('.gruppoinputNumPassaggi1').hide();
             $('.gruppoinputDistanze1').hide();
             $('.gruppoinputDistanze2').hide();
+            $('#bottonisquadra1').hide();
             $('.gruppoinputNumPassaggi2').hide();
             $('#forms1').find(':input').prop('disabled', true);
             $('#forms2').find(':input').prop('disabled', true);
@@ -92,13 +93,13 @@
                 $('#contenuto1').animate({opacity:1},500);
                 $('#remove_elem2').html('Rimuovi elem');
                 $("#save2").prop('disabled',false);
-                $("#bottonisquadra1").prop('disabled',false);
+                $("#bottonisquadra").prop('disabled',false);
                 $("#remove_all_squadra2").prop('disabled',false);
                 rmv = 0;
             }
             else if(rmv == 0){
                 $("#save2").prop('disabled',true);
-                $("#bottonisquadra1").prop('disabled',true);
+                $("#bottonisquadra").prop('disabled',true);
                 $("#remove_all_squadra2").prop('disabled',true);
                 rmv = 1;
                 $('#contenuto2').effect("highlight", {}, 1000);
@@ -106,7 +107,7 @@
                 $('#remove_elem2').html('Annulla');
                 $('#contenuto2').click(function(e){
                     $("#save2").prop('disabled',false);
-                    $("#bottonisquadra1").prop('disabled',false);
+                    $("#bottonisquadra").prop('disabled',false);
                     $("#remove_all_squadra2").prop('disabled',false);
                     rmv = 0;
                     $(e.target).remove();
@@ -129,13 +130,13 @@
                 $('#contenuto2').animate({opacity:1},500);
                 $('#remove_elem1').html('Rimuovi elem');
                 $("#save").prop('disabled',false);
-                $("#bottonisquadra2").prop('disabled',false);
+                $("#bottonisquadra").prop('disabled',false);
                 $("#remove_all_squadra1").prop('disabled',false);
                 rmv1 = 0;
             }
             else if(rmv1 == 0){
                 $("#save").prop('disabled',true);
-                $("#bottonisquadra2").prop('disabled',true);
+                $("#bottonisquadra").prop('disabled',true);
                 $("#remove_all_squadra1").prop('disabled',true);
                 rmv1 = 1;
                 $('#contenuto1').effect("highlight", {}, 1000);
@@ -143,7 +144,7 @@
                 $('#remove_elem1').html('Annulla');
                 $('#contenuto1').click(function(e){
                     $("#save").prop('disabled',false);
-                    $("#bottonisquadra2").prop('disabled',false);
+                    $("#bottonisquadra").prop('disabled',false);
                     $("#remove_all_squadra1").prop('disabled',false);
                     rmv1 = 0;
                     $(e.target).remove();
@@ -432,8 +433,7 @@
     <p class="lead">Pin a fixed-height footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS. A fixed navbar has been added with <code>padding-top: 60px;</code> on the <code>body &gt; .container</code>.</p>
     <p>Back to <a href="../sticky-footer">the default sticky footer</a> minus the navbar.</p>
 
-
-    <button type="button" class="btn btn-primary" id="bottonisquadra" style="margin-bottom: 8px;" onclick="mostraBottoniSquadra2()">Squadra 2</button>
+    <button type="button" class="btn btn-primary" id="bottonisquadra" style="margin-bottom: 8px;" onclick="cambiaSquadra()">Modifica la squadra 2</button>
     <div class="row" id="bottoni_squadra1">
 
 
@@ -456,7 +456,6 @@
                     <button type="button" class="btn btn-success" id="save" onclick="captureCurrentDiv()">
                         Salva
                     </button>
-                    <button type="button" class="btn btn-primary" id="bottonisquadra2" onclick="mostraBottoniSquadra2()">Squadra 2</button>
                     <button type="button" class="btn btn-warning" id="remove_elem1">Rimuovi elem</button>
                     <button type="button" class="btn btn-danger" id="remove_all_squadra1" onclick="removeSquadra1()">Svuota</button>
                 </div>
@@ -554,7 +553,6 @@
                 <button type="button" class="btn btn-success" id="save2" onclick="captureCurrentDiv()">
                     Salva
                 </button>
-                <button type="button" class="btn btn-primary" id="bottonisquadra1" onclick="mostraBottoniSquadra1()">Squadra 1</button>
                 <button type="button" class="btn btn-warning" id="remove_elem2">Rimuovi elem</button>
                 <button type="button" class="btn btn-danger" id="remove_all_squadra2" onclick="removeSquadra2()">Svuota</button>
             </div>

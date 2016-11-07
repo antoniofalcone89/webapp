@@ -311,12 +311,34 @@ function removeSquadra2() {
 var squadra = 1;
 
 function mostraBottoniSquadra2() {
+    //$('#bottonisquadra1').hide();
+    $('#bottonisquadra2').show();
     $('#bottoni_squadra1').hide();
     $('#bottoni_squadra2').show();
     $("#disposizione2").replaceWith($("#disposizione2").clone());
 
     lightSquadra(2);
     squadra = 2;
+}
+
+function cambiaSquadra(){
+    if (squadra == 1){
+        $('#bottonisquadra').html("Modifica la squadra 1");
+        $('#bottoni_squadra1').hide();
+        $('#bottoni_squadra2').show();
+        $("#disposizione2").replaceWith($("#disposizione2").clone());
+        lightSquadra(2);
+        squadra = 2;
+    }
+    else if(squadra == 2){
+        $('#bottonisquadra').html("Modifica la squadra 2");
+        $('#bottoni_squadra2').hide();
+        $('#bottoni_squadra1').show();
+        $("#disposizione2").replaceWith($("#disposizione2").clone());
+
+        lightSquadra(1);
+        squadra = 1;
+    }
 }
 
 function set433_1() {
@@ -341,6 +363,8 @@ function set352_2() {
 }
 
 function mostraBottoniSquadra1() {
+    //$('#bottonisquadra2').hide();
+    $('#bottonisquadra1').show();
     $('#bottoni_squadra2').hide();
     $('#bottoni_squadra1').show();
     $("#disposizione1").replaceWith($("#disposizione1").clone());

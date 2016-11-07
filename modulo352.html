@@ -70,6 +70,7 @@
 
         var rmv = 0;
         //Rimuovo gli elementi su cui clicco nella colonna di destra
+        //Se clicco su rimuovi ma voglio annullare, controllo questo con una variabile
         $(document).on('click', '#remove_elem', function() {
             if(rmv == 1){
                 $('#contenuto1').off('click');
