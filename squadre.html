@@ -47,7 +47,7 @@
         var modulo1 = 433;
         var modulo2 = 433;
         $(document).ready(function(){
-            $('#contenuto1').effect("highlight", {}, 5000);
+            //$('#contenuto1').effect("highlight", {}, 5000);
             $('.waiting').hide();
             $('#bottoni_squadra2').hide();
             $('.gruppoinputDistanze1').hide();
@@ -479,7 +479,12 @@
     <div class="m-t-1">
         <h1>MandrakeGraphics</h1>
     </div>
-    <p class="lead">Pin a fixed-height footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS. A fixed navbar has been added with <code>padding-top: 60px;</code> on the <code>body &gt; .container</code>.</p>
+
+
+
+    <p class="lead"><a href="" data-toggle="modal" data-target="#myModal">Informazioni sul modulo 4-3-3</a></p>
+    <p class="lead"><a href="" data-toggle="modal" data-target="#myModal352">Informazioni sul modulo 3-5-2</a></p>
+    <p class="lead">Foggia Merda Foggia Merda Foggia Merda Foggia Merda Foggia Merda Foggia Merda Foggia Merda Foggia Merda Foggia Merda Foggia Merda Foggia Merda Foggia Merda Foggia Merda</p>
     <p>Back to <a href="../sticky-footer">the default sticky footer</a> minus the navbar.</p>
 
     <button type="button" class="btn btn-primary" id="bottonisquadra" style="margin-bottom: 8px;" onclick="cambiaSquadra()">Modifica la squadra 2</button>
@@ -565,7 +570,7 @@
                         <div class="gruppoinput1" id="firstimg1">
                             <p class="lead" style="margin-bottom: 0;">Heatmap</p>
                             <label class="btn btn-default btn-info">
-                                Browse <input type="file" style="display: none;" class="inputfile"/>
+                                Browse <input type="file" style="display: none;" class="inputfile" id="heatmap1"/>
                             </label>
                             <button type="button" class="btn btn-outline-danger" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
                         </div>
@@ -657,7 +662,7 @@
                     <div class="gruppoinput2" id="firstimg2">
                         <p class="lead" style="margin-bottom: 0;">Heatmap</p>
                         <label class="btn btn-default btn-info">
-                            Browse <input type="file" style="display: none;" class="inputfile"/>
+                            Browse <input type="file" style="display: none;" class="inputfile" id="heatmap2"/>
                         </label>
                         <button type="button" class="btn btn-outline-danger" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
                     </div>
@@ -730,26 +735,80 @@
 
 </div>
 
-    <!-- Modal -->
-    <!--<div class="modal fade bd-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title" id="myModalLabel">MandrakeGraphics</h4>
-                </div>
-                <div class="modal-body">
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="removeCanvas()">Close</button>
-                </div>
+<!-- Modal 433 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">4-3-3: Modello empirico</h4>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li>
+                        <p>I terzini sono rispettivamente uno difensivo, l'altro fluidificante (tutto campo)</p>
+                    </li>
+                    <li>
+                        <p>Le distanze medie tra difesa e attacco devono restare costanti e più piccole possibili</p>
+                    </li>
+                    <li>
+                        <p>Gli interni di centrocampo sono rispettivamente uno difensivo, l'altro cerca di inserirsi tra le linee</p>
+                    </li>
+                    <li>
+                        <p>Il mediano (o regista) è quello che tocca più volte la palla tra tutti i giocatori</p>
+                    </li>
+                    <li>
+                        <p>La punta centrale non attacca la profondità ma gioca la palla sulla trequarti (sponde o passaggi)</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
             </div>
         </div>
-    </div>-->
+    </div>
+</div>
 
+<!-- Modal 352-->
+<div class="modal fade" id="myModal352" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel352">3-5-2: Modello empirico</h4>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li>
+                        <p>Terzini fluidifcanti coprono tutta la fascia</p>
+                    </li>
+                    <li>
+                        <p>Difensore centrale più alto possibile</p>
+                    </li>
+                    <li>
+                        <p>Difensore centrale primo regista: maggior numero di tocchi di palla</p>
+                    </li>
+                    <li>
+                        <p>Regista di centrocampo deve coprire la zona centrale fino alla trequarti</p>
+                    </li>
+                    <li>
+                        <p>Punte mai sull'esterno</p>
+                    </li>
+                    <li>
+                        <p>Difensori centrali vanno in pressing sulla linea del regista di centrocampo</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 </div>
 

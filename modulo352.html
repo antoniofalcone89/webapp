@@ -26,6 +26,9 @@
     <script src="js/bootstrap.min.js"></script>
 
     <script src="js/functions.js"></script>
+    <!-- Cookie JS for Modal -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.0/jquery.cookie.min.js"></script>
+
 
 
     <!--Liste senza pallini-->
@@ -38,10 +41,34 @@
     </style>
 
     <script>
+        // Delayed Modal Display + Cookie On Click
+        $(document).ready(function() {
+
+            // If no cookie with our chosen name (e.g. no_thanks)...
+            if ($.cookie("no_thanks_352") == null) {
+
+                // Show the modal, with delay func.
+                $('#myModal').appendTo("body");
+                function show_modal(){
+                    $('#myModal').modal();
+                }
+
+                // Set delay func. time in milliseconds
+                window.setTimeout(show_modal, 1000);
+            }
+
+            // On click of specified class (e.g. 'nothanks'), trigger cookie, with expiration in year 9999
+            $(".nothanks").click(function() {
+                document.cookie = "no_thanks_352=true; expires=Fri, 31 Dec 9999 23:59:59 UTC";
+
+            });
+        });
+
         $(document).ready(function(){
             $('.waiting').hide();
-            $('#myModal').modal('show');
+            //$('#myModal').modal('show');
         });
+
 
         //Scrivo il nome del file selezionato
         $(document).on('change', '.inputfile', function() {
@@ -456,6 +483,7 @@
                 </ul>
             </div>
             <div class="modal-footer">
+                <button class="btn btn-link nothanks" data-dismiss="modal" aria-hidden="true">Non mostrare più</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
             </div>
         </div>

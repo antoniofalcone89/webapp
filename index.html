@@ -79,15 +79,36 @@
 
         });
 
+
+        var rmv = 0;
         //Rimuovo gli elementi su cui clicco nella colonna di destra
+        //Se clicco su rimuovi ma voglio annullare, controllo questo con una variabile
         $(document).on('click', '#remove_elem', function() {
-            $('div .col-md-8').effect("highlight", {}, 1000);
-            //$('div .col-md-8').css('cursor', 'crosshair');
-            $('div .col-md-8').click(function(e){
-                $(e.target).remove();
-                $('div .col-md-8').off('click'); //Dopo aver rimosso un elemento disattivo, bisogna cliccare di nuovo su remove per rim un altro
-                //$('#sortable').css('cursor', 'default');
-            });
+            if(rmv == 1){
+                $('.col-md-8').off('click');
+                $('#remove_elem').html('Rimuovi elem');
+                rmv = 0;
+                $("#save").prop('disabled',false);
+                $("#remove_all").prop('disabled',false);
+            }
+            else if(rmv == 0){
+                rmv = 1;
+                $("#save").prop('disabled',true);
+                $("#remove_all").prop('disabled',true);
+                $('.col-md-8').effect("highlight", {}, 1000);
+                $('#remove_elem').html('Annulla');
+                $('.col-md-8').click(function(e){
+                    rmv = 0;
+                    $(e.target).remove();
+                    $("#save").prop('disabled',false);
+                    $("#remove_all").prop('disabled',false);
+                    $('.col-md-8').off('click');
+                    $('#remove_elem').html('Rimuovi elem');//Dopo aver rimosso un elemento disattivo, bisogna cliccare di nuovo su remove per rim un altro
+                    //$('#sortable').css('cursor', 'default');
+                });
+            }
+
+
         });
 
         //Eseguo lo script python sul file selezionato
@@ -195,18 +216,12 @@
         <!--Bottoni barra centrale -->
         <div class="col-md-4" id="strumenti">
 
-            <div class="dropdown">
-                <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Aggiungi
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#" onclick="addElements()">Infografica</a>
-                    <a class="dropdown-item" href="#" onclick="addText()">Testo</a>
+            <form class="form-inline" id="firstInput" style="margin-top: 8px;">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="text" placeholder="Testo">
                 </div>
-                <button type="button" class="btn btn-outline-primary" id="remove_elem">Rimuovi</button>
-
-            </div>
-
+                <button type="button" class="btn btn-primary" id="inserisciTesto" onclick="setText(text.value)">Ok</button>
+            </form>
 
             <form class="form-inline" id="firstInput1" style="margin-top: 8px;">
                 <div class="form-group">
@@ -220,7 +235,7 @@
             <div class="gruppoinput1" id="firstimg1">
                 <p class="lead" style="margin-bottom: 0; margin-top: 8px">Heatmap</p>
                 <label class="btn btn-default btn-info">
-                    Browse <input type="file" style="display: none;" class="inputfile"/>
+                    Browse <input type="file" style="display: none;" class="inputfile" id="heatmap1"/>
                 </label>
                 <button type="submit" class="btn btn-outline-danger" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
             </div>
@@ -229,6 +244,7 @@
                 <button type="button" class="btn btn-success" id="save" onclick="captureSinglePlayer()">
                     Salva
                 </button>
+                <button type="button" class="btn btn-warning" id="remove_elem">Rimuovi elem</button>
                 <button type="button" class="btn btn-danger" id="remove_all" onclick="removeSquadra1()">Svuota</button>
             </div>
 
