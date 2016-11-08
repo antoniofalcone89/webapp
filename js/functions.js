@@ -326,7 +326,7 @@ function cambiaSquadra(){
         $('#bottonisquadra').html("Modifica la squadra 1");
         $('#bottoni_squadra1').hide();
         $('#bottoni_squadra2').show();
-        $("#disposizione2").replaceWith($("#disposizione2").clone());
+        //$("#disposizione2").replaceWith($("#disposizione2").clone());
         lightSquadra(2);
         squadra = 2;
     }
@@ -334,8 +334,7 @@ function cambiaSquadra(){
         $('#bottonisquadra').html("Modifica la squadra 2");
         $('#bottoni_squadra2').hide();
         $('#bottoni_squadra1').show();
-        $("#disposizione2").replaceWith($("#disposizione2").clone());
-
+        //$("#disposizione2").replaceWith($("#disposizione2").clone());
         lightSquadra(1);
         squadra = 1;
     }
