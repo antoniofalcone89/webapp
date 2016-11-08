@@ -62,6 +62,9 @@ function myAjax (nomefile) {
             complete: function (data) {
                 setImg(nomeimg);
                 $('.waiting').hide();
+                $("#heatmap1").replaceWith($("#firstimg1").clone());
+                $("#firstimg1").closest('.gruppoinput1').children('p.nomefile').remove();
+                $("#firstimg2").closest('.gruppoinput2').children('p.nomefile').remove();
             },
             beforeSend:function(){
                 $('.waiting').show();
@@ -70,6 +73,10 @@ function myAjax (nomefile) {
     }
     else{
         alert("Richiesto un file di tipo csv");
+        $("#firstimg1").replaceWith($("#firstimg1").clone());
+        $("#firstimg2").replaceWith($("#firstimg2").clone());
+        $("#firstimg1").closest('.gruppoinput1').children('p.nomefile').remove();
+        $("#firstimg2").closest('.gruppoinput2').children('p.nomefile').remove();
     }
 
 }
