@@ -62,6 +62,8 @@ function myAjax (nomefile) {
             complete: function (data) {
                 setImg(nomeimg);
                 $('.waiting').hide();
+                $("#firstimg1").closest('.gruppoinput1').children('p.nomefile').remove();
+                $("#firstimg2").closest('.gruppoinput2').children('p.nomefile').remove();
             },
             beforeSend:function(){
                 $('.waiting').show();
@@ -73,7 +75,6 @@ function myAjax (nomefile) {
     }
 
 }
-
 
 
 //INFOGRAFICA DISTANZE REPARTI ATTACCO DIFESA
