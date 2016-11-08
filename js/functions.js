@@ -75,6 +75,7 @@ function myAjax (nomefile) {
 }
 
 
+
 //INFOGRAFICA DISTANZE REPARTI ATTACCO DIFESA
 function distanze(filenames1, numfiles1) {
     var nomifiles = filenames1;
