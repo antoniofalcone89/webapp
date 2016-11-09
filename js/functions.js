@@ -48,7 +48,7 @@ function myAjax (nomefile) {
     estensione = nomefile.split('.').pop().toLowerCase();
     if(estensione == "csv"){
         $.ajax( { type : 'POST',
-            data : {testo},
+            data : {testo, diagonale},
             url  : 'action.php',              // <=== CALL THE PHP FUNCTION HERE.
             success: function ( data ) {
                 img = testo.slice(0, -4);
@@ -64,6 +64,40 @@ function myAjax (nomefile) {
                 $('.waiting').hide();
                 $("#firstimg1").closest('.gruppoinput1').children('p.nomefile').remove();
                 $("#firstimg2").closest('.gruppoinput2').children('p.nomefile').remove();
+            },
+            beforeSend:function(){
+                $('.waiting').show();
+            }
+        });
+    }
+    else{
+        alert("Richiesto un file di tipo csv");
+    }
+
+}
+
+function diagonaleH(nomefile) {
+    var testo = nomefile;
+    var nomeimg;
+    estensione = nomefile.split('.').pop().toLowerCase();
+    if(estensione == "csv"){
+        $.ajax( { type : 'POST',
+            data : {testo, diagonale},
+            url  : 'actionDiagonale.php',              // <=== CALL THE PHP FUNCTION HERE.
+            success: function ( data ) {
+                img = testo.slice(0, -4);
+                nomeimg = data;
+                //alert( data );               // <=== VALUE RETURNED FROM FUNCTION.
+            },
+            error: function (xhr, status, error) {
+                // executed if something went wrong during call
+                if (xhr.status > 0) alert('got error: ' + status); // status 0 - when load is interrupted
+            },
+            complete: function (data) {
+                setImg(nomeimg);
+                $('.waiting').hide();
+                $("#diagonale").closest('.gruppodiagonale1').children('p.nomefile').remove();
+                //$("#firstimg2").closest('.gruppodiagonale1').children('p.nomefile').remove();
             },
             beforeSend:function(){
                 $('.waiting').show();

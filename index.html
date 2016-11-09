@@ -111,13 +111,49 @@
 
         });
 
+        var diagonale = 0;
         //Eseguo lo script python sul file selezionato
-        $(document).on('click', '.btn-outline-danger', function() {
+        $(document).on('click', '#heatmapButton', function() {
+            diagonale = 0;
             var par = $(this).parent();
 
             var testo = par.children().last().text();
             //alert(testo);
             myAjax(testo);
+        });
+
+        //Eseguo lo script python per la diagonale sul file selezionato
+        $(document).on('click', '#diagonaleButton', function() {
+            diagonale = 1;
+            var par = $(this).parent();
+
+            var testo = par.children().last().text();
+            //alert(testo);
+            diagonaleH(testo);
+        });
+
+        //Scrivo il nome del file selezionato
+        $(document).on('change', '.inputfile', function() {
+            var dio = ($(this).val().split('\\').pop());    //Nome del file
+            if(squadra == 1){
+                //Se ho già scelto una volta il file devo sostituirlo
+                if($(this).closest('.gruppodiagonale1').children('p.nomefile').length){
+                    $(this).closest('.gruppodiagonale1').children('p.nomefile').remove(); //Sostituisco il nome del file
+                }
+                //Se scelgo il file per la prima volta allora appendo il nome del file
+                $(this).closest('.gruppodiagonale1').append('<p class="nomefile">'+dio+'</p>');
+                $(this).parent().next().prop('disabled', false);
+            }
+            else if(squadra == 2){
+                //Se ho già scelto una volta il file devo sostituirlo
+                if($(this).closest('.gruppodiagonale2').children('p.nomefile').length){
+                    $(this).closest('.gruppodiagonale2').children('p.nomefile').remove(); //Sostituisco il nome del file
+                }
+                //Se scelgo il file per la prima volta allora appendo il nome del file
+                $(this).closest('.gruppodiagonale2').append('<p class="nomefile">'+dio+'</p>');
+                $(this).parent().next().prop('disabled', false);
+            }
+
         });
 
         //Scroll sugli elementi nella tabella di destra
@@ -236,7 +272,15 @@
                 <label class="btn btn-default btn-info">
                     Browse <input type="file" style="display: none;" class="inputfile" id="heatmap1"/>
                 </label>
-                <button type="submit" class="btn btn-outline-danger" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
+                <button type="submit" id="heatmapButton" class="btn btn-outline-danger" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
+            </div>
+
+            <div class="gruppodiagonale1" id="diagonale">
+                <p class="lead" style="margin-bottom: 0; margin-top: 8px">Diagonale difensiva</p>
+                <label class="btn btn-default btn-info">
+                    Browse <input type="file" style="display: none;" class="inputfile" id="diagonale1"/>
+                </label>
+                <button type="submit" id="diagonaleButton" class="btn btn-outline-danger" disabled="disabled" style="margin-bottom: 8px;">Ok</button>
             </div>
 
             <div class="btn-group" role="group" aria-label="Basic example" style="margin-top: 8px; margin-bottom: 8px">
