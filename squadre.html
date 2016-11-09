@@ -59,14 +59,14 @@
 
         //Scrivo il nome del file selezionato
         $(document).on('change', '.inputfile', function() {
-            var dio = ($(this).val().split('\\').pop());    //Nome del file
+            var name = ($(this).val().split('\\').pop());    //Nome del file
             if(squadra == 1){
                 //Se ho già scelto una volta il file devo sostituirlo
                 if($(this).closest('.gruppoinput1').children('p.nomefile').length){
                     $(this).closest('.gruppoinput1').children('p.nomefile').remove(); //Sostituisco il nome del file
                 }
                 //Se scelgo il file per la prima volta allora appendo il nome del file
-                $(this).closest('.gruppoinput1').append('<p class="nomefile">'+dio+'</p>');
+                $(this).closest('.gruppoinput1').append('<p class="nomefile">'+name+'</p>');
                 $(this).parent().next().prop('disabled', false);
             }
             else if(squadra == 2){
@@ -75,7 +75,7 @@
                     $(this).closest('.gruppoinput2').children('p.nomefile').remove(); //Sostituisco il nome del file
                 }
                 //Se scelgo il file per la prima volta allora appendo il nome del file
-                $(this).closest('.gruppoinput2').append('<p class="nomefile">'+dio+'</p>');
+                $(this).closest('.gruppoinput2').append('<p class="nomefile">'+name+'</p>');
                 $(this).parent().next().prop('disabled', false);
             }
 
@@ -157,6 +157,7 @@
         });
 
 
+        var diagonale = 0;
         //Eseguo lo script python sul file selezionato
         $(document).on('click', '.gruppoinput1 > .btn-outline-danger', function() {
             var par = $(this).parent();
@@ -393,9 +394,9 @@
         });
 
         //Eseguo lo script python sui file per num passaggi
-        $(document).on('click', '.gruppoinputNumPassaggi1 > #passaggiButton2', function() {
+        $(document).on('click', '.gruppoinputNumPassaggi2 > #passaggiButton2', function() {
             //alert(testo);
-            numPassaggi(names3, numfiles3, modulo1);
+            numPassaggi(names3, numfiles3, modulo2);
             names3 = [];
             numfiles3 = 0;
         });
@@ -403,10 +404,11 @@
         //Eseguo lo script python sui file csv dei giocatori NUM TOCCHI
         $(document).on('change', '.inputPassaggi', function() {
 
+
             numfiles3 = $(this).get(0).files.length;
             for (var i = 0; i < numfiles3; ++i) {
                 names3.push($(this).get(0).files[i].name);
-                //alert(names2[i]);
+                //alert(names3[i]);
             }
             //Scrivo il numero dei file selezionati
             if(squadra == 1){
@@ -483,10 +485,9 @@
 
 
 
-    <p class="lead"><a href="" data-toggle="modal" data-target="#myModal">Informazioni sul modulo 4-3-3</a></p>
-    <p class="lead"><a href="" data-toggle="modal" data-target="#myModal352">Informazioni sul modulo 3-5-2</a></p>
-    <p class="lead">Foggia Merda Foggia Merda Foggia Merda Foggia Merda Foggia Merda Foggia Merda Foggia Merda Foggia Merda Foggia Merda Foggia Merda Foggia Merda Foggia Merda Foggia Merda</p>
-    <p>Back to <a href="../sticky-footer">the default sticky footer</a> minus the navbar.</p>
+    <p><a href="" data-toggle="modal" data-target="#myModal">Informazioni sul modulo 4-3-3</a></p>
+    <p><a href="" data-toggle="modal" data-target="#myModal352">Informazioni sul modulo 3-5-2</a></p>
+    <p class="lead">Confronto tra due squadre scelte dall'utente.</p>
 
     <button type="button" class="btn btn-primary" id="bottonisquadra" style="margin-bottom: 8px;" onclick="cambiaSquadra()">Modifica la squadra 2</button>
     <div class="row" id="bottoni_squadra1">
@@ -623,8 +624,8 @@
                         Modulo squadra
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownModuloButton">
-                        <a class="dropdown-item" href="#" onclick="modulo2 = 433; $('#dropdownModulo2').html('4-3-3'); set433_2(); $('#forms2').find(':input').prop('disabled', false);">4-3-3</a>
-                        <a class="dropdown-item" href="#" onclick="modulo2 = 352; $('#dropdownModulo2').html('3-5-2'); set352_2(); $('#forms2').find(':input').prop('disabled', false);">3-5-2</a>
+                        <a class="dropdown-item" href="#" onclick="modulo2 = 433; $('#dropdownModulo2').html('4-3-3'); set433_2();">4-3-3</a>
+                        <a class="dropdown-item" href="#" onclick="modulo2 = 352; $('#dropdownModulo2').html('3-5-2'); set352_2();">3-5-2</a>
                     </div>
                 </div>
                 <div class="gruppoinputDisposizione2">
@@ -747,18 +748,19 @@
                 <h4 class="modal-title" id="myModalLabel">4-3-3: Modello empirico</h4>
             </div>
             <div class="modal-body">
+                <p class="lead">Il modello è creato prendendo come riferimento la Juventus (all. Conte) stagione 2012/2013 (record di 102 punti).</p>
                 <ul>
                     <li>
-                        <p>I terzini sono rispettivamente uno difensivo, l'altro fluidificante (tutto campo)</p>
+                        <p>I <strong>terzini</strong> sono rispettivamente uno difensivo, l'altro fluidificante (tutto campo)</p>
                     </li>
                     <li>
-                        <p>Le distanze medie tra difesa e attacco devono restare costanti e più piccole possibili</p>
+                        <p>Le <strong>distanze</strong> medie tra difesa e attacco devono restare costanti e più piccole possibili</p>
                     </li>
                     <li>
                         <p>Gli interni di centrocampo sono rispettivamente uno difensivo, l'altro cerca di inserirsi tra le linee</p>
                     </li>
                     <li>
-                        <p>Il mediano (o regista) è quello che tocca più volte la palla tra tutti i giocatori</p>
+                        <p>Il mediano (o <strong>regista</strong>) è quello che tocca più volte la palla tra tutti i giocatori</p>
                     </li>
                     <li>
                         <p>La punta centrale non attacca la profondità ma gioca la palla sulla trequarti (sponde o passaggi)</p>
@@ -783,24 +785,25 @@
                 <h4 class="modal-title" id="myModalLabel352">3-5-2: Modello empirico</h4>
             </div>
             <div class="modal-body">
+                <p class="lead">Il modello è creato prendendo come riferimento il Real Madrid (all. Ancelotti) stagione 2013/14 vincitore della Champions League.</p>
                 <ul>
                     <li>
-                        <p>Terzini fluidifcanti coprono tutta la fascia</p>
+                        <p><strong>Terzini fluidifcanti</strong> coprono tutta la fascia</p>
                     </li>
                     <li>
                         <p>Difensore centrale più alto possibile</p>
                     </li>
                     <li>
-                        <p>Difensore centrale primo regista: maggior numero di tocchi di palla</p>
+                        <p><strong>Difensore centrale primo regista</strong>: maggior numero di tocchi di palla</p>
                     </li>
                     <li>
-                        <p>Regista di centrocampo deve coprire la zona centrale fino alla trequarti</p>
+                        <p><strong>Regista di centrocampo</strong> deve coprire la zona centrale fino alla trequarti</p>
                     </li>
                     <li>
                         <p>Punte mai sull'esterno</p>
                     </li>
                     <li>
-                        <p>Difensori centrali vanno in pressing sulla linea del regista di centrocampo</p>
+                        <p><strong>Difensori centrali</strong> vanno in pressing sulla linea del regista di centrocampo</p>
                     </li>
                 </ul>
             </div>

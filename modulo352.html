@@ -72,14 +72,14 @@
 
         //Scrivo il nome del file selezionato
         $(document).on('change', '.inputfile', function() {
-            var dio = ($(this).val().split('\\').pop());    //Nome del file
+            var name = ($(this).val().split('\\').pop());    //Nome del file
             if(squadra == 1){
                 //Se ho già scelto una volta il file devo sostituirlo
                 if($(this).closest('.gruppoinput1').children('p.nomefile').length){
                     $(this).closest('.gruppoinput1').children('p.nomefile').remove(); //Sostituisco il nome del file
                 }
                 //Se scelgo il file per la prima volta allora appendo il nome del file
-                $(this).closest('.gruppoinput1').append('<p class="nomefile">'+dio+'</p>');
+                $(this).closest('.gruppoinput1').append('<p class="nomefile">'+name+'</p>');
                 $(this).parent().next().prop('disabled', false);
             }
             else if(squadra == 2){
@@ -88,7 +88,7 @@
                     $(this).closest('.gruppoinput2').children('p.nomefile').remove(); //Sostituisco il nome del file
                 }
                 //Se scelgo il file per la prima volta allora appendo il nome del file
-                $(this).closest('.gruppoinput2').append('<p class="nomefile">'+dio+'</p>');
+                $(this).closest('.gruppoinput2').append('<p class="nomefile">'+name+'</p>');
                 $(this).parent().next().prop('disabled', false);
             }
 
@@ -129,8 +129,10 @@
 
         });
 
+        var diagonale;
         //Eseguo lo script python sul file selezionato
         $(document).on('click', '.gruppoinput1 > .btn-outline-danger', function() {
+            diagonale = 0;
             var par = $(this).parent();
 
             var testo = par.children().last().text();
@@ -339,11 +341,13 @@
         <h1>MandrakeGraphics</h1><h2>3-5-2</h2>
         <a href="" data-toggle="modal" data-target="#myModal">Informazioni sul modello</a> <span id="remove_text_field" class="glyphicon glyphicon-info-sign" aria-hidden="true" style="vertical-align: middle"></span>
     </div>
-    <p class="lead">Quando si selezionano i file csv per mostrare la disposizione in campo della squadra, questi devono indicare i calciatori nella disposizione corrispondente al modulo, da sinistra verso destra.</p>
-    <p>Esempio: il file 1.csv deve indicare il terzino sinistro, 2.csv il difensore centrale di sinistra, 3.csv il centrale destro e così via.</p>
+    <p class="lead">In questa sezione è possibile analizzare il corretto/errato funzionamento del modulo 3-5-2 di una squadra.
+        L'analisi viene fatta tramite confronto con un modello creato evidenziando i punti fondamentali del modulo.</p>
+    <p>Quando si selezionano i file csv per mostrare la disposizione in campo della squadra,
+        questi devono indicare i calciatori nella disposizione corrispondente al modulo, da sinistra verso destra.
+        <small>(Esempio: il file 1.csv deve indicare il difensore centrale sinistro, 2.csv il difensore centrale, 3.csv il centrale destro e così via.)</small></p>
 
-    <p class="lead">Per ottenere il grafico della distanza media tra difesa e attacco sono necessari 3 file csv. E' importante seguire l'esempio seguente.</p>
-    <p>Esempio: il file 1.csv deve indicare il difensore centrale sinistro (o destro), 2.csv l'altro difensore centrale, 3.csv la punta centrale.</p>
+    <p>La disposizione effettiva mostra il reale schieramento in campo della squadra.</p>
 
     <div class="row">
 
@@ -375,7 +379,7 @@
         <div class="col-md-6">
             <div class="col-md-6">
                 <div class="gruppoinputDisposizione1">
-                    <p class="lead" style="margin-bottom: 0;">Disposizione - test</p>
+                    <p class="lead" style="margin-bottom: 0;">Disposizione</p>
                     <label class="btn btn-default btn-info">
                         Browse <input type="file" id="disposizione1" style="display: none;" class="inputDisposizione1" multiple="multiple"/>
                     </label>
@@ -462,24 +466,25 @@
                 <h4 class="modal-title" id="myModalLabel">3-5-2: Modello empirico</h4>
             </div>
             <div class="modal-body">
+                <p class="lead">Il modello è creato prendendo come riferimento il Real Madrid (all. Ancelotti) stagione 2013/14 vincitore della Champions League.</p>
                 <ul>
                     <li>
-                        <p>Terzini fluidifcanti coprono tutta la fascia</p>
+                        <p><strong>Terzini fluidifcanti</strong> coprono tutta la fascia</p>
                     </li>
                     <li>
                         <p>Difensore centrale più alto possibile</p>
                     </li>
                     <li>
-                        <p>Difensore centrale primo regista: maggior numero di tocchi di palla</p>
+                        <p><strong>Difensore centrale primo regista</strong>: maggior numero di tocchi di palla</p>
                     </li>
                     <li>
-                        <p>Regista di centrocampo deve coprire la zona centrale fino alla trequarti</p>
+                        <p><strong>Regista di centrocampo</strong> deve coprire la zona centrale fino alla trequarti</p>
                     </li>
                     <li>
                         <p>Punte mai sull'esterno</p>
                     </li>
                     <li>
-                        <p>Difensori centrali vanno in pressing sulla linea del regista di centrocampo</p>
+                        <p><strong>Difensori centrali</strong> vanno in pressing sulla linea del regista di centrocampo</p>
                     </li>
                 </ul>
             </div>

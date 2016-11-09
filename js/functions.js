@@ -48,7 +48,7 @@ function myAjax (nomefile) {
     estensione = nomefile.split('.').pop().toLowerCase();
     if(estensione == "csv"){
         $.ajax( { type : 'POST',
-            data : {testo},
+            data : {testo, diagonale},
             url  : 'action.php',              // <=== CALL THE PHP FUNCTION HERE.
             success: function ( data ) {
                 img = testo.slice(0, -4);
@@ -64,6 +64,40 @@ function myAjax (nomefile) {
                 $('.waiting').hide();
                 $("#firstimg1").closest('.gruppoinput1').children('p.nomefile').remove();
                 $("#firstimg2").closest('.gruppoinput2').children('p.nomefile').remove();
+            },
+            beforeSend:function(){
+                $('.waiting').show();
+            }
+        });
+    }
+    else{
+        alert("Richiesto un file di tipo csv");
+    }
+
+}
+
+function diagonaleH(nomefile) {
+    var testo = nomefile;
+    var nomeimg;
+    estensione = nomefile.split('.').pop().toLowerCase();
+    if(estensione == "csv"){
+        $.ajax( { type : 'POST',
+            data : {testo, diagonale},
+            url  : 'actionDiagonale.php',              // <=== CALL THE PHP FUNCTION HERE.
+            success: function ( data ) {
+                img = testo.slice(0, -4);
+                nomeimg = data;
+                //alert( data );               // <=== VALUE RETURNED FROM FUNCTION.
+            },
+            error: function (xhr, status, error) {
+                // executed if something went wrong during call
+                if (xhr.status > 0) alert('got error: ' + status); // status 0 - when load is interrupted
+            },
+            complete: function (data) {
+                setImg(nomeimg);
+                $('.waiting').hide();
+                $("#diagonale").closest('.gruppodiagonale1').children('p.nomefile').remove();
+                //$("#firstimg2").closest('.gruppodiagonale1').children('p.nomefile').remove();
             },
             beforeSend:function(){
                 $('.waiting').show();
@@ -288,15 +322,17 @@ function disposizione352(filenames, numfiles, effettiva) {
 
 }
 
-
+/*
 function removeCanvas(){
     $(".modal-body").empty();
 }
-
+*/
+/*
 function removeContent() {
     $('#contenuto').empty();
     $('#contenuto').append('<ul id="sortable" class="ui-sortable"> </ul>');
 }
+*/
 
 function removeSquadra1() {
     $('#contenuto1').empty();
@@ -312,6 +348,8 @@ function removeSquadra2() {
 
 var squadra = 1;
 
+
+/*
 function mostraBottoniSquadra2() {
     //$('#bottonisquadra1').hide();
     $('#bottonisquadra2').show();
@@ -322,6 +360,7 @@ function mostraBottoniSquadra2() {
     lightSquadra(2);
     squadra = 2;
 }
+*/
 
 function cambiaSquadra(){
     if (squadra == 1){
@@ -361,6 +400,8 @@ function set352_2() {
     $('.gruppoinputDistanze2').hide();
 }
 
+
+/*
 function mostraBottoniSquadra1() {
     //$('#bottonisquadra2').hide();
     $('#bottonisquadra1').show();
@@ -370,6 +411,7 @@ function mostraBottoniSquadra1() {
     lightSquadra(1);
     squadra = 1;
 }
+*/
 
 function captureCurrentDiv()
 {
@@ -399,13 +441,13 @@ function setTitle(){
     //var titolo = document.getElementById('title').value;
     if(squadra == 1){
         var title = $('#title').val();
-        $('#sortable1').prepend('<li class="ui-state-default"><h1>'+title+'</h1></li>');
+        $('#sortable1').append('<li class="ui-state-default"><h1>'+title+'</h1></li>');
         $('#title').val('');
         $('#sortable1').css('cursor', 'default');
     }
     else if(squadra == 2){
         var title = $('#title2').val();
-        $('#sortable2').prepend('<li class="ui-state-default"><h1>'+title+'</h1></li>');
+        $('#sortable2').append('<li class="ui-state-default"><h1>'+title+'</h1></li>');
         $('#title').val('');
         $('#sortable2').css('cursor', 'default');
     }
@@ -427,7 +469,7 @@ function setText(){
     }
 }
 
-//PER AGGIUNGERE BOTTONI HEATMAP
+/*//PER AGGIUNGERE BOTTONI HEATMAP
 var x = 1; //initlal text box count
 function addElements(){
     var max_fields      = 10; //maximum input boxes allowed
@@ -484,4 +526,4 @@ function addText(){
         })
     }
 
-}
+}*/
