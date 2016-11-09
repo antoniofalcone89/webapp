@@ -10,7 +10,7 @@
     <meta name="author" content="">
 
 
-    <title>Mandrake&Manzotin</title>
+    <title>MandrakeGraphics</title>
 
     <link rel="stylesheet" href="css/bootstrap.css"/>
     <link href="css/glyphicons.css" rel="stylesheet" />
@@ -147,13 +147,15 @@
             numfiles = 0;
         });
 
+        var namesEff = [];
+        var numfilesEff;
         //Eseguo lo script python sui file per la disposizione effettiva
         $(document).on('click', '.gruppoinputDisposizioneEff1 > #disposizioneButtonEff1', function() {
             //alert(testo);
             effettiva = 1;
-            disposizione433(names, numfiles, effettiva);
-            names = [];
-            numfiles = 0;
+            disposizione433(namesEff, numfilesEff, effettiva);
+            namesEff = [];
+            numfilesEff = 0;
         });
 
         //Scrivo il numero dei file selezionati
@@ -190,9 +192,9 @@
         //Scrivo il numero dei file selezionati disposizione effettiva
         $(document).on('change', '#disposizioneEff1', function() {
 
-            numfiles = $(this).get(0).files.length;
-            for (var i = 0; i < numfiles; ++i) {
-                names.push($(this).get(0).files[i].name);
+            numfilesEff = $(this).get(0).files.length;
+            for (var i = 0; i < numfilesEff; ++i) {
+                namesEff.push($(this).get(0).files[i].name);
                 //alert(names[i]);
             }
             //Scrivo il nome del file selezionato
@@ -202,7 +204,7 @@
                     $(this).closest('.gruppoinputDisposizioneEff1').children('p.numfiles').remove(); //Sostituisco il numero
                 }
                 //Se scelgo il file per la prima volta allora appendo il nome del file
-                $(this).closest('.gruppoinputDisposizioneEff1').append('<p class="numfiles">Hai selezionato '+numfiles+' files</p>');
+                $(this).closest('.gruppoinputDisposizioneEff1').append('<p class="numfiles">Hai selezionato '+numfilesEff+' files</p>');
                 $(this).parent().next().prop('disabled', false);
             }
             else if(squadra == 2){
@@ -211,7 +213,7 @@
                     $(this).closest('.gruppoinputDisposizioneEff2').children('p.numfiles').remove(); //Sostituisco il nome del file
                 }
                 //Se scelgo il file per la prima volta allora appendo il nome del file
-                $(this).closest('.gruppoinputDisposizioneEff2').append('<p class="numfiles">Hai selezionato '+numfiles+' files</p>');
+                $(this).closest('.gruppoinputDisposizioneEff2').append('<p class="numfiles">Hai selezionato '+numfilesEff+' files</p>');
                 $(this).parent().next().prop('disabled', false);
             }
 
@@ -343,7 +345,7 @@
                 &#9776;
             </button>
             <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
-                <a class="navbar-brand" href="#">MandrakeGraphics</a>
+                <a class="navbar-brand" href="index.html">MandrakeGraphics</a>
                 <ul class="nav navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="index.html">SinglePlayer<span class="sr-only">(current)</span></a>
@@ -355,7 +357,6 @@
                         <div class="dropdown-menu" aria-labelledby="Preview">
                             <a class="dropdown-item" href="modulo433.html">4-3-3</a>
                             <a class="dropdown-item" href="modulo352.html">3-5-2</a>
-                            <a class="dropdown-item" href="#">4-2-3-1 alla De Boer</a>
                         </div>
                     </li>
                     <li class="nav-item">
